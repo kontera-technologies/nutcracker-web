@@ -1,4 +1,2 @@
-nutcracker-ui
+nutcracker-web
 =============
-
-UI for nutcracker cluster
