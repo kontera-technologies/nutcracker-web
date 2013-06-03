@@ -1,0 +1,15 @@
+<META HTTP-EQUIV="refresh" CONTENT="600">
+<div class="navbar-inner">
+  <div class="container nosel">
+    <a class="brand" href="#">Nutcracker</a>
+    <ul class="nav nav-pills" style="font-size: 17px">
+      <li class="divider-vertical"></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" id="drop4" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Clusters <b class="caret"></b></a>
+        <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+        </ul>
+      </li>
+      <li class="divider-vertical"></li>
+    </ul>
+  </div>
+</div>
