@@ -1,0 +1,1 @@
+Last Update <%=humanize.relativeTime(@model.get('timestamp'))%>
