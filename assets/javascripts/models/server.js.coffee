@@ -5,5 +5,11 @@ class Nutcracker.Models.Server extends Backbone.Model
 
     clusters.map ( data,cluster )->
       collection.add _.extend(name: cluster,data)
-    @set("clusters",collection)
 
+    serverConnections = 0
+    for nodeCollection in collection.pluck("nodes")
+      serverConnections += _(nodeCollection.pluck("server_connections")).sum()
+
+    @set "clusters", collection
+    @set "serverConnections", serverConnections
+    @set "clientConnections",_(collection.pluck("client_connections")).sum()

@@ -4,6 +4,7 @@ class Nutcracker.Routers.Dashboard extends Backbone.Router
 
   initialize: ->
     $('#navbar').html (new Nutcracker.Views.Navbar(model: Nutcracker.server)).render().el
+    $('#footer').html (new Nutcracker.Views.Footer(model: Nutcracker.server)).render().el
     @index()
 
   index: ->

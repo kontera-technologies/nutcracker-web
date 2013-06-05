@@ -5,7 +5,18 @@
     <tr><th>Hostname</th><td><%=@model.get("source")%></td></tr>
     <tr><th>Service</th><td>Nutcracker Ver. <%=@model.get("version")%></td></tr>
     <tr><th>Uptime</th><td><%=humanize.relativeTime(((new Date())-@model.get("uptime")*1000)/1000)%></td></tr>
+    <tr><th>Server Connections</th><td><%=@model.get("serverConnections")%></td></tr>
+    <tr><th>Client Connections</th><td><%=@model.get("clientConnections")%></td></tr>
+
+    <tr>
+      <th>Clusters</th>
+      <td>
+        <% for name in @model.get("clusters").pluck("name"): %>
+          <a href="#clusters/<%=name%>"><%=name%></a><br/>
+        <%end%>
+      </td>
+    </tr>
+
   </tbody>
 </table>
 
-last update <%=humanize.relativeTime(@model.get('timestamp'))%>
