@@ -7,6 +7,7 @@ window.Nutcracker =
   Utils: {}
 
   initialize: ->
+    Nutcracker.stats = $('#container').data("clusters")["clusters"]
     new Nutcracker.Routers.Dashboard()
     Backbone.history.start()
 

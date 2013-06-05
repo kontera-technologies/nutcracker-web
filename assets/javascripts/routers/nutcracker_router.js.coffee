@@ -3,8 +3,7 @@ class Nutcracker.Routers.Dashboard extends Backbone.Router
     '' : 'index'
 
   initialize: ->
-    stats = $('#container').data("clusters")["clusters"]
-    collection = Nutcracker.Collections.Clusters.fromStats stats
+    collection = Nutcracker.Collections.Clusters.fromStats Nutcracker.stats
     $('#navbar').html (new Nutcracker.Views.Navbar({collection})).render().el
     $('#container').html "shuki"
 
