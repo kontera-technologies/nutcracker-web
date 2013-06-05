@@ -5,7 +5,7 @@ class Nutcracker.Views.Navbar extends Backbone.View
     'click li' : 'buttonClick'
 
   render: ->
-    $(@el).html @template({@collection})
+    $(@el).html @template({@model})
     this
 
   buttonClick: ( event ) ->

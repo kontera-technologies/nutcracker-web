@@ -3,8 +3,8 @@ class Nutcracker.Routers.Dashboard extends Backbone.Router
     '' : 'index'
 
   initialize: ->
-    collection = Nutcracker.Collections.Clusters.fromStats Nutcracker.stats
-    $('#navbar').html (new Nutcracker.Views.Navbar({collection})).render().el
-    $('#container').html "shuki"
+    $('#navbar').html (new Nutcracker.Views.Navbar(model: Nutcracker.server)).render().el
+    @index()
 
   index: ->
+    $('#container').html (new Nutcracker.Views.Server(model: Nutcracker.server)).render().el

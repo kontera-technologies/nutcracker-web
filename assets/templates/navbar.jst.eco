@@ -1,19 +1,35 @@
-<div class="navbar-inner">
-  <div class="container nosel">
-    <a class="brand" href="#">Nutcracker</a>
-    <ul class="nav nav-pills" style="font-size: 17px">
-      <li class="divider-vertical"></li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" id="drop4" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Clusters <b class="caret"></b></a>
-        <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-          <% for cluster in @collection.models: %>
-            <li role="presentation">
-              <a role="menuitem" tabindex="-1" href="#clusters/<%=cluster.get('name')%>"><%=cluster.get('name')%></a>
-            </li>
-          <% end %>
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container" style="font-size: 18px">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#" style="color: #ffffff;font-size: 25px">Nutcracker</a>
+      <div class="nav-collapse collapse navbar-responsive-collapse">
+        <ul class="nav">
+          <li class="divider-vertical"></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" id="drop4" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Clusters <b class="caret"></b></a>
+            <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+              <% for cluster in @model.get("clusters").models: %>
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="#clusters/<%=cluster.get('name')%>"><%=cluster.get('name')%></a>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+           <li class="divider-vertical"></li>
         </ul>
-      </li>
-      <li class="divider-vertical"></li>
-    </ul>
-  </div>
-</div>
+
+        <ul class="nav pull-right">
+          <li class="divider-vertical"></li>
+          <li><a>Version <%=Nutcracker.server.get("version")%></a></li>
+          <li class="divider-vertical"></li>
+        </ul>
+      </div><!-- /.nav-collapse -->
+    </div>
+  </div><!-- /navbar-inner -->
+</div><!-- /navbar -->
+
