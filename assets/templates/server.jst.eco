@@ -1,0 +1,11 @@
+<h3> Overview </h3>
+<br/>
+<table class="table table-striped table-bordered">
+  <tbody>
+    <tr><th>Hostname</th><td><%=@model.get("source")%></td></tr>
+    <tr><th>Service</th><td>Nutcracker Ver. <%=@model.get("version")%></td></tr>
+    <tr><th>Uptime</th><td><%=humanize.relativeTime(((new Date())-@model.get("uptime")*1000)/1000)%></td></tr>
+  </tbody>
+</table>
+
+last update <%=humanize.relativeTime(@model.get('timestamp'))%>
