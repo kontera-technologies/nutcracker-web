@@ -33,6 +33,7 @@ __END__
   %head
     %script(type='text/javascript' src='assets/application.js')
     %link(rel='stylesheet' href='assets/application.css')
+    %link(rel="shortcut icon" href="http://www.fu.com/fu")
   %body
     = yield
 
