@@ -7,8 +7,12 @@ window.Nutcracker =
   Utils: {}
 
   initialize: ->
-    Nutcracker.overview = new Nutcracker.Models.Overview $('#container').data("clusters")
-    new Nutcracker.Routers.Dashboard()
+    model = new Nutcracker.Models.Overview $('#container').data("clusters")
+    Nutcracker.overview = model
+    Nutcracker.screen = new Nutcracker.Utils.RegionManager
+    Nutcracker.screen.navbar(new Nutcracker.Views.Navbar {model} )
+    Nutcracker.screen.footer(new Nutcracker.Views.Footer {model} )
+    new Nutcracker.Routers.Overview
     Backbone.history.start()
 
 $( document ).ready ->
