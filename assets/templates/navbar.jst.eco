@@ -27,7 +27,7 @@
 
         <ul class="nav pull-right">
           <li class="divider-vertical"></li>
-          <li><a>Version <%=Nutcracker.server.get("version")%></a></li>
+          <li><a>Version <%=@model.get("version")%></a></li>
           <li class="divider-vertical"></li>
         </ul>
       </div><!-- /.nav-collapse -->

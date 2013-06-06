@@ -3,9 +3,12 @@ class Nutcracker.Routers.Dashboard extends Backbone.Router
     '' : 'index'
 
   initialize: ->
-    $('#navbar').html (new Nutcracker.Views.Navbar(model: Nutcracker.server)).render().el
-    $('#footer').html (new Nutcracker.Views.Footer(model: Nutcracker.server)).render().el
+    $('#navbar').html (new Nutcracker.Views.Navbar(@_options())).render().el
+    $('#footer').html (new Nutcracker.Views.Footer(@_options())).render().el
     @index()
 
   index: ->
-    $('#container').html (new Nutcracker.Views.Server(model: Nutcracker.server)).render().el
+    $('#container').html (new Nutcracker.Views.Overview(@_options())).render().el
+
+  _options: ->
+    model: Nutcracker.overview
