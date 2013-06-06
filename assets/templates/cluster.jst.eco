@@ -1,0 +1,10 @@
+<h3> <%= @model.get("name") %> </h3>
+<br/>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr><th>Shuki</th><th>Tuki</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>salkd</td><td>slksd</td></tr>
+  </tbody>
+</table>

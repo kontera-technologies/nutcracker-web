@@ -1,10 +1,19 @@
 class Nutcracker.Routers.Overview extends Backbone.Router
   routes:
     '' : 'index'
+    'clusters/:cluster' : 'showCluster'
 
   initialize: ->
     @index()
 
-  index: ->
-    Nutcracker.screen.body new
-      Nutcracker.Views.Overview model: Nutcracker.overview
+  index: =>
+      @_show( Nutcracker.Views.Overview )
+
+  showCluster: (cluster)=>
+    model = Nutcracker.overview.get("clusters").findWhere name: cluster
+    @_show( Nutcracker.Views.Cluster, {model} )
+
+  _show: (view,options = model: Nutcracker.overview) =>
+    Nutcracker.screen.body new view options
+
+

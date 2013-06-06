@@ -33,7 +33,7 @@ __END__
   %head
     %script(type='text/javascript' src='assets/application.js')
     %link(rel='stylesheet' href='assets/application.css')
-    %link(rel="shortcut icon" href="http://www.kontera.com/favicon.ico")
+    %link(rel="shortcut icon" href="http://publishers.kontera.com/favicon.ico")
   %body
     = yield
 
