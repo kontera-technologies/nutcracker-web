@@ -1,19 +1,11 @@
 class Nutcracker.Models.Overview extends Backbone.Model
-  initialize: (stats)->
-    clusters = _ @get("clusters")
-    collection = new Nutcracker.Collections.Clusters
-
-    clusters.map ( data,cluster )->
-      collection.add _.extend(name: cluster,data)
-
-    clientConnections = _(collection.pluck("client_connections")).sum()
+  initialize: ->
+    clientConnections = _(@get("clusters").pluck("client_connections")).sum()
 
     serverConnections = 0
-    for nodesCollection in collection.pluck("nodes")
+    for nodesCollection in @get("clusters").pluck("nodes")
       serverConnections += nodesCollection.serverConnections()
 
-
-    @set "clusters",          collection
     @set "serverConnections", serverConnections
     @set "clientConnections", clientConnections
 
@@ -22,3 +14,19 @@ class Nutcracker.Models.Overview extends Backbone.Model
       .pluck("models")
       .flatten()
       .value()
+
+  urls: =>
+    _(@nodes()).chain()
+      .map((o) -> o.get("server_url"))
+      .uniq()
+      .value()
+
+  parse: ( response ) ->
+    response.clusters = new Nutcracker.Collections.Clusters response.clusters
+    response
+
+  set: ( attributes, options ) ->
+    if attributes.clusters? and attributes.clusters not instanceof Nutcracker.Collections.Clusters
+      attributes.clusters = new Nutcracker.Collections.Clusters attributes.clusters
+
+    Backbone.Model.prototype.set.call(@, attributes, options)

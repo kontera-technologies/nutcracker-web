@@ -16,18 +16,39 @@
             <a class="dropdown-toggle" id="drop4" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Clusters <b class="caret"></b></a>
             <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
               <% for cluster in @model.get("clusters").models: %>
-                <li role="presentation">
+                <li role="presentation" style="font-size: 15px">
                   <a role="menuitem" tabindex="-1" href="#clusters/<%=cluster.get('name')%>"><%=cluster.get('name')%></a>
                 </li>
+                <%if (showDivider = !showDivider):%>
+                  <li class='divider'></li>
+                <% end %>
+                
               <% end %>
             </ul>
           </li>
+
+          <li class="divider-vertical"></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" id="drop5" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Nodes <b class="caret"></b></a>
+            <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop5">
+              <% for url in @model.urls(): %>
+                <li role="presentation" style="font-size: 15px">
+                  <a role="menuitem" tabindex="-1" href="#nodes/<%=url%>"><%=url%></a>
+                </li>
+                <%if (showDivider = !showDivider):%>
+                  <li class='divider'></li>
+                <% end %>
+              <% end %>
+              
+            </ul>
+          </li>
            <li class="divider-vertical"></li>
+
         </ul>
 
         <ul class="nav pull-right">
           <li class="divider-vertical"></li>
-          <li><a>Version <%=@model.get("version")%></a></li>
+          <li class="no-hl"><a>Version <%=@model.get("version")%></a></li>
           <li class="divider-vertical"></li>
         </ul>
       </div><!-- /.nav-collapse -->

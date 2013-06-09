@@ -5,13 +5,12 @@ class Nutcracker.Views.Navbar extends Backbone.View
     'click li' : 'buttonClick'
 
   render: ->
-    $(@el).html @template({@model})
+    $(@el).html @template {@model}
     this
 
   buttonClick: ( event ) ->
-    button = $(event.currentTarget)
-    return unless button.attr("class")
-    return if /dropdown/.test button.attr("class")
+    button = $ event.currentTarget
+    return if /dropdown|no-hl/.test button.attr "class"
     @resetButtons()
     @highlightButton button
 
@@ -19,4 +18,6 @@ class Nutcracker.Views.Navbar extends Backbone.View
     @$el.find("li").removeClass 'active'
 
   highlightButton: ( button ) ->
+    if /dropdown/.test button.parent()?.attr("class")
+      button.closest('li[class^="dropdown"]').addClass 'active'
     button.addClass 'active'
