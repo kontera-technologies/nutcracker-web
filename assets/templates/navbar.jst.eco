@@ -10,9 +10,9 @@
       <div class="nav-collapse collapse navbar-responsive-collapse">
         <ul class="nav">
           <li class="divider-vertical"></li>
-          <li class="active"><a href="#">Overview</a></li>
+          <li id="overview" ><a href="#">Overview</a></li>
           <li class="divider-vertical"></li>
-          <li class="dropdown">
+          <li id="clusters" class="dropdown">
             <a class="dropdown-toggle" id="drop4" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Clusters <b class="caret"></b></a>
             <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
               <% for cluster in @model.get("clusters").models: %>
@@ -28,10 +28,10 @@
           </li>
 
           <li class="divider-vertical"></li>
-          <li class="dropdown">
+          <li id="nodes" class="dropdown">
             <a class="dropdown-toggle" id="drop5" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Nodes <b class="caret"></b></a>
             <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop5">
-              <% for url in @model.urls(): %>
+              <% for url in @model.hosts(): %>
                 <li role="presentation" style="font-size: 15px">
                   <a role="menuitem" tabindex="-1" href="#nodes/<%=url%>"><%=url%></a>
                 </li>

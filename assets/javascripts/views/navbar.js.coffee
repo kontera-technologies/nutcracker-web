@@ -1,23 +1,26 @@
 class Nutcracker.Views.Navbar extends Backbone.View
   className: "navbar navbar-inverse navbar-fixed-top"
   template: JST['navbar']
-  events:
-    'click li' : 'buttonClick'
+  
+  initialize: =>
+    Backbone.history.bind "all", @routeChange
 
   render: ->
     $(@el).html @template {@model}
     this
 
-  buttonClick: ( event ) ->
-    button = $ event.currentTarget
-    return if /dropdown|no-hl/.test button.attr "class"
-    @resetButtons()
-    @highlightButton button
-
   resetButtons: ->
     @$el.find("li").removeClass 'active'
 
-  highlightButton: ( button ) ->
-    if /dropdown/.test button.parent()?.attr("class")
-      button.closest('li[class^="dropdown"]').addClass 'active'
-    button.addClass 'active'
+  activate: ( id )=>
+    @$(id).addClass 'active'
+
+  routeChange: (route, object, action, args) =>
+    @resetButtons()
+    if /index/g.test action
+      @activate '#overview'
+    else if /showCluster/ig.test action
+      @activate '#clusters'
+    else if /showNode/gi.test action
+      @activate '#nodes'
+    

@@ -20,7 +20,7 @@
     <tr>
       <th>Nodes</th>
       <td>
-        <% for url in _(@model.nodes()).chain().map((o)->o.get("server_url")).uniq().value(): %>
+        <% for url in @model.hosts(): %>
           <a href="#nodes/<%=url%>"><%=url%></a><br/>
         <%end%>
       </td>

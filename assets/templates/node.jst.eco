@@ -1,0 +1,39 @@
+<h3 align=center><%= @model.get("hostname") %><h3>
+
+<h4> Node Stats </h3>
+</br>
+
+<table class="table table-striped table-bordered">
+  <tr><th width="30%">Connections</th><td> <%= @model.get("info").connections %></td></tr>
+  <tr><th width="30%">Keys</th><td> <%= @model.get("info").keys %></td></tr>
+  <tr><th width="30%">Evicted Keys</th><td> <%= @model.get("info").evicted_keys %></td></tr>
+  <tr><th width="30%">Expired Keys</th><td> <%= @model.get("info").expired_keys %></td></tr>
+  <tr><th width="30%">Fragmentation</th><td> <%= humanize.numberFormat @model.get("info").fragmentation %></td></tr>
+  <tr><th width="30%">Hits</th><td> <%= humanize.numberFormat @model.get("info").hits %></td></tr>
+  <tr><th width="30%">Misses</th><td> <%= humanize.numberFormat @model.get("info").misses %></td></tr>
+  <tr><th width="30%">Hit Ratio</th><td> <%= humanize.numberFormat @model.get("info").hit_ratio %></td></tr>
+  <tr><th width="30%">Max Memory</th><td> <%= humanize.filesize @model.get("info").max_memory %></td></tr>
+  <tr><th width="30%">Used Memory</th><td> <%= humanize.filesize @model.get("info").used_memory %></td></tr>
+  <tr><th width="30%">Used Memory RSS</th><td> <%= humanize.filesize @model.get("info").used_memory_rss %></td></tr>
+  
+</table>
+
+<h4> Cluster <-> Node Stats </h3>
+</br>
+<table class="table table-striped table-bordered">
+  <tr><th width="30%">In-Queue</th><td> <%= @model.get "in_queue" %></td></tr>
+  <tr><th width="30%">In-Queue Size</th><td> <%= humanize.filesize(@model.get "in_queue_bytes") %></td></tr>
+  <tr><th width="30%">Out-Queue</th><td> <%= @model.get "out_queue" %></td></tr>
+  <tr><th width="30%">Out-Queue Size</th><td> <%= humanize.filesize(@model.get "out_queue_bytes") %></td></tr>
+  <tr><th width="30%">Requests</th><td> <%= @model.get "requests" %></td></tr>
+  <tr><th width="30%">Requests Size</th><td> <%= humanize.filesize(@model.get "request_bytes") %></td></tr>
+  <tr><th width="30%">Responses</th><td> <%= @model.get "responses" %></td></tr>
+  <tr><th width="30%">Responses Size</th><td> <%= humanize.filesize(@model.get "response_bytes") %></td></tr>
+  <tr><th width="30%">Server Connections</th><td> <%= @model.get "server_connections" %></td></tr>
+  <tr><th width="30%">Server EOF</th><td> <%= @model.get "server_eof" %></td></tr>
+  <tr><th width="30%">Server Error</th><td> <%= @model.get "server_err" %></td></tr>
+  <tr><th width="30%">Server Timedout</th><td> <%= @model.get "server_timedout" %></td></tr>
+</table>
+
+
+

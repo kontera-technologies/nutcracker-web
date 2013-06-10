@@ -10,16 +10,17 @@ class Nutcracker.Models.Overview extends Backbone.Model
     @set "clientConnections", clientConnections
 
   nodes: =>
-    _(@get("clusters").pluck("nodes")).chain()
+    new Backbone.Collection(_(@get("clusters").pluck("nodes")).chain()
       .pluck("models")
       .flatten()
       .value()
+    )
 
-  urls: =>
-    _(@nodes()).chain()
-      .map((o) -> o.get("server_url"))
-      .uniq()
-      .value()
+  clusters: =>
+    @get "clusters"
+
+  hosts: =>
+    _(@nodes().pluck("hostname")).uniq()
 
   parse: ( response ) ->
     response.clusters = new Nutcracker.Collections.Clusters response.clusters
