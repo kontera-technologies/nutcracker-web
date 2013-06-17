@@ -1,17 +1,39 @@
 <h3 align=center> <%= @model.get("name") %> </h2>
 </br>
+
 <table class="table table-striped table-bordered">
-  <tr><th width="30%">Client Connections</th><td><%= @model.get("client_connections") %></td></tr>
-  <tr><th width="30%">Client EOF</th>        <td><%= @model.get("client_eof") %></td></tr>
-  <tr><th width="30%">Client Errors</th>     <td><%= @model.get("client_err") %></td></tr>
-  <tr><th width="30%">Forward Errors</th>    <td><%= @model.get("forward_error") %></td></tr>
-  <tr><th width="30%">Fragments</th>         <td><%= @model.get("fragments") %></td></tr>
-  <tr><th width="30%">Server Ejects</th>     <td><%= @model.get("fragments") %></td></tr>
+  <tr>
+    <th>Client Connections</th>
+    <th>Client EOF</th>
+    <th>Client Errors</th>
+    <th>Forward Errors</th>
+    <th>Fragments</th>
+    <th>Server Ejects</th>
+  </tr>
+  <tr>
+    <td><%= @model.get('client_connections')%></td>
+    <td><%= @model.get('client_eof')%></td>
+    <td><%= @model.get('client_err')%></td>
+    <td><%= @model.get('forward_error')%></td>
+    <td><%= @model.get('fragments')%></td>
+    <td><%= @model.get('server_ejects')%></td>
+  </tr>
+
 </table>
 
 </br>
 
 <h3> Nodes </h3>
+</hr>
+<div class="row">
+  <div  class="span6">
+    <div id="chart1" style="padding-left: 17%"></div>
+  </div>
+  <div class="span6">
+    <div id="chart2" style="padding-left: 17%"></div>
+  </div>
+</div>
+</br>
 </br>
 </br>
 <table class="table table-striped table-bordered">

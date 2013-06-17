@@ -12,7 +12,7 @@ window.Nutcracker =
     Nutcracker.screen = new Nutcracker.Utils.RegionManager
     Nutcracker.screen.navbar new Nutcracker.Views.Navbar {model}
     Nutcracker.screen.footer new Nutcracker.Views.Footer {model}
-    new Nutcracker.Routers.Overview
+    Nutcracker.router = new Nutcracker.Routers.Overview
     Backbone.history.start()
 
 $( document ).ready ->

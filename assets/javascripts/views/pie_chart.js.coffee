@@ -1,2 +1,2 @@
-class PieChart extends Backbone.view
+class PieChart extends Backbone.View
 

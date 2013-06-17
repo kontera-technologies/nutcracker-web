@@ -19,17 +19,14 @@ class Nutcracker.Views.Node extends Backbone.View
       legend: {position: 'bottom'}
     }
     
-    free = parseInt((info.max_memory - info.used_memory)/1024.0/1024)
-    free = 0 if free < 0
-
     charts = [
       new Backbone.GoogleChart({
         chartType: 'PieChart'
-        options: _(title: 'Memory (MB)').extend options
+        options: _(title: 'Memory (GB)').extend options
         dataTable: [
             ['Memory', 'Memory'],
-            ['Free', free],
-            ['Used', parseInt(info.used_memory/1024.0/1024)]
+            ['Free', @model.get('freeMemory')],
+            ['Used', @model.get('usedMemory')]
         ],
       }),
 

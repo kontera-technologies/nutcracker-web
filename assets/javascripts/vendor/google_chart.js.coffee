@@ -58,8 +58,6 @@ class Backbone.GoogleChart extends Backbone.View
     
     timeout = 10
     (func = =>
-      console.log timeout
-      console.log @_list
       _(@_list).map ( fn, id ) =>
         fn() || delete @_list[id] if $(id)[0]
       if _(@_list).isEmpty()
