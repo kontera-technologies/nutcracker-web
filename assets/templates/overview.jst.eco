@@ -11,8 +11,8 @@
     <tr>
       <th>Clusters</th>
       <td>
-        <% for name in @model.get("clusters").pluck("name"): %>
-          <a href="#clusters/<%=name%>"><%=name%></a><br/>
+        <% for cluster in @model.get("clusters").models: %>
+          <a href="<%=cluster.get("routeURL")%>"><%=cluster.get("name")%></a><br/>
         <%end%>
       </td>
     </tr>
@@ -20,8 +20,8 @@
     <tr>
       <th>Nodes</th>
       <td>
-        <% for url in @model.hosts(): %>
-          <a href="#nodes/<%=url%>"><%=url%></a><br/>
+        <% for node in @model.nodes().models: %>
+          <a href="<%=node.get('routeURL')%>"><%=node.get('hostname')%></a><br/>
         <%end%>
       </td>
     </tr>

@@ -19,9 +19,6 @@ class Nutcracker.Models.Overview extends Backbone.Model
   clusters: =>
     @get "clusters"
 
-  hosts: =>
-    _(@nodes().pluck("hostname")).uniq()
-
   parse: ( response ) ->
     response.clusters = new Nutcracker.Collections.Clusters response.clusters
     response

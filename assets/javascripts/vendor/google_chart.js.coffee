@@ -26,6 +26,7 @@ class Backbone.GoogleChart extends Backbone.View
 
     @onGoogleLoad =>
       @google = google.visualization
+      ( chartOptions.beforeDraw || -> )(chartOptions)
       @wrapper = new @google.ChartWrapper chartOptions
       ['ready','select', 'error'].map @listen
 

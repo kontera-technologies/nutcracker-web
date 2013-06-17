@@ -18,7 +18,7 @@
               <% showDivider = true %>
               <% for cluster in @model.get("clusters").models: %>
                 <li role="presentation" style="font-size: 15px">
-                  <a role="menuitem" tabindex="-1" href="#clusters/<%=cluster.get('name')%>"><%=cluster.get('name')%></a>
+                  <a role="menuitem" tabindex="-1" href="<%=cluster.get('routeURL')%>"><%=cluster.get('name')%></a>
                 </li>
                 <%if (showDivider = !showDivider):%>
                   <li class='divider'></li>
@@ -33,9 +33,9 @@
             <a class="dropdown-toggle" id="drop5" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Nodes <b class="caret"></b></a>
             <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop5">
               <% showDivider2 = true %>
-              <% for url in @model.hosts(): %>
+              <% for node in @model.nodes().models: %>
                 <li role="presentation" style="font-size: 15px">
-                  <a role="menuitem" tabindex="-1" href="#nodes/<%=url%>"><%=url%></a>
+                  <a role="menuitem" tabindex="-1" href="<%=node.get("routeURL")%>"><%=node.get("hostname")%></a>
                 </li>
                 <%if (showDivider2 = !showDivider):%>
                   <li class='divider'></li>
@@ -44,8 +44,10 @@
               
             </ul>
           </li>
-           <li class="divider-vertical"></li>
 
+          <li class="divider-vertical"></li>
+          <li id="configuration" ><a href="#configuration">Configuration </a></li>
+          <li class="divider-vertical"></li>
         </ul>
 
         <ul class="nav pull-right">

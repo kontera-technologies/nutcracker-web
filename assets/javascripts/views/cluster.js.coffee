@@ -6,26 +6,29 @@ class Nutcracker.Views.Cluster extends Backbone.View
 
     options = {
       is3D: true
-      #titlePosition: "in",
-      #title: 'Memory (GB)',
-      titleTextStyle: {fontSize: 17.5, color: '#333333'}
-      slices: [{},{color: 'red'}]
-      width: 300,
-      height: 300,
+      titleTextStyle:
+        fontSize: 17.5
+        color: '#333333'
+      width:  300
+      height: 300
       sliceVisibilityThreshold: 0
-      chartArea: {
+      chartArea:
         width: '100%'
         height: '80%'
-      }
-      legend: {position: 'bottom'}
+      legend:
+        position: 'bottom'
     }
 
-    data = [['Node','Node']]
+    formatter = new Nutcracker.Utils.GenericFormatter(humanize.filesize)
 
+    data = [['Node','Node']]
     @model.get("nodes").map (node)->
-      data.push [node.get("hostname"),node.get("maxMemory")]
+      data.push [node.get("hostname"),node.get("info").max_memory]
 
     chart = new Backbone.GoogleChart({
+      beforeDraw: (options)-> # move this to GoogleChart
+        options.dataTable = google.visualization.arrayToDataTable options.dataTable
+        formatter.format(options.dataTable, 1)
       chartType: 'PieChart'
       options: options
       dataTable: data
@@ -36,18 +39,18 @@ class Nutcracker.Views.Cluster extends Backbone.View
         chart.getSelection()[0].row
       ).get('routeURL'), trigger: true
 
-    @$el.find("#chart1").html chart.render().el
-
-    data = [
-      ['Memory', 'Memory']
-      ['Free', @model.get("nodes").freeMemory() ]
-      ['Used', @model.get('nodes').usedMemory() ]
-    ]
-
-    @$el.find("#chart2").html new Backbone.GoogleChart({
+    @$el.find("#chart2").html chart.render().el
+    @$el.find("#chart1").html new Backbone.GoogleChart({
+      beforeDraw: (options)->
+        options.dataTable = google.visualization.arrayToDataTable options.dataTable
+        formatter.format(options.dataTable, 1)
       chartType: 'PieChart'
       options: options
-      dataTable: data
+      dataTable: [
+        ['Memory', 'Memory']
+        ['Free', @model.get("nodes").freeMemory() ]
+        ['Used', @model.get('nodes').usedMemory() ]
+      ]
     }).render().el
     
     this
