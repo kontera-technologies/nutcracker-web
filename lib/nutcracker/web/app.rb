@@ -31,6 +31,7 @@ __END__
 @@ layout
 %html
   %head
+    %script(type='text/javascript' src='http://www.google.com/jsapi')
     %script(type='text/javascript' src='assets/application.js')
     %link(rel='stylesheet' href='assets/application.css')
     %link(rel="shortcut icon" href="http://publishers.kontera.com/favicon.ico")
@@ -43,3 +44,5 @@ __END__
   #container{ "data-clusters" => @data.to_json }
     loading...
 #footer
+- 3.times do
+  %br
