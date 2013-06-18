@@ -7,3 +7,12 @@ body { padding-top: 60px; }
 .glowing {
   color: #ffffff;
 }
+
+a.nextPrevButton,a.nextPrevButton:hover  {
+  color: #333333;
+}
+
+.nosel {
+  user-select: none;
+  -webkit-user-select: none;
+}

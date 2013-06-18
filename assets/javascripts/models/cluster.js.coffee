@@ -1,10 +1,7 @@
 class Nutcracker.Models.Cluster extends Backbone.Model
+  @routeURL: (name)-> "#/clusters/#{name}"
   initialize: ->
-    @set("routeURL","#clusters/#{@get("name")}")
-
-  parse: ( response ) ->
-    response.nodes = new Nutcracker.Collections.Nodes response.nodes
-    response
+    @set("routeURL",@constructor.routeURL @get 'name')
 
   set: ( attributes, options ) ->
     if attributes.nodes? and attributes.nodes not instanceof Nutcracker.Collections.Nodes

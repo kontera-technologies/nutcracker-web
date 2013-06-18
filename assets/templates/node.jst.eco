@@ -1,4 +1,20 @@
-<h3 align=center><%= @model.get("hostname") %><h3>
+<h3 align=center><%= @model.get("hostname") %></h3>
+
+<ul class="pager">
+  <%if @prevNode: %>
+    <li class="previous nosel"><a class="nextPrevButton" href="<%= @prevNode?.get("routeURL")%>">&larr; Prev</a></li>
+  <% else: %>
+    <li class="previous disabled nosel"><a>&larr; Prev</a></li>
+  <%end%>
+  
+  <%if @nextNode: %>
+    <li class="next nosel"><a class="nextPrevButton" href="<%= @nextNode?.get("routeURL")%>">Next &rarr;</a></li>
+  <% else: %>
+    <li class="next disabled nosel"><a>Next &rarr;</a></li>
+  <%end%>
+  </li>
+</ul>
+
 </br>
 </hr>
 

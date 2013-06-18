@@ -19,10 +19,6 @@ class Nutcracker.Models.Overview extends Backbone.Model
   clusters: =>
     @get "clusters"
 
-  parse: ( response ) ->
-    response.clusters = new Nutcracker.Collections.Clusters response.clusters
-    response
-
   set: ( attributes, options ) ->
     if attributes.clusters? and attributes.clusters not instanceof Nutcracker.Collections.Clusters
       attributes.clusters = new Nutcracker.Collections.Clusters attributes.clusters

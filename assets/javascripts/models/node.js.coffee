@@ -1,4 +1,7 @@
 class Nutcracker.Models.Node extends Backbone.Model
+  @routeURL: (hostname)->
+    "#/nodes/#{hostname.split(":")[0..1].join(":")}"
+
   initialize: ->
     @set 'hostname',   @get('server_url')?.replace(/redis:\/\//,'')
     @set 'maxMemory',  @get('info').max_memory
@@ -7,4 +10,4 @@ class Nutcracker.Models.Node extends Backbone.Model
     @set 'usedMemoryRss', @get('info').used_memory_rss
     @set 'fragmentation', @get('info').fragmentation
     @set 'freeMemory', 0 if @get('freeMemory') < 0
-    @set 'routeURL', "#nodes/#{@get('hostname')}"
+    @set 'routeURL', @constructor.routeURL @get('hostname')

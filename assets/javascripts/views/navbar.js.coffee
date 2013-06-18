@@ -19,6 +19,8 @@ class Nutcracker.Views.Navbar extends Backbone.View
     @resetButtons()
     if /index/g.test action
       @activate '#overview'
+    if /showConfig/.test action
+      @activate '#config'
     else if /showCluster/ig.test action
       @activate '#clusters'
     else if /showNode/gi.test action

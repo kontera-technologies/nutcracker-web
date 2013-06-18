@@ -9,7 +9,7 @@
     <tr><th>Client Connections</th><td><%=@model.get("clientConnections")%></td></tr>
 
     <tr>
-      <th>Clusters</th>
+      <th>Total Clusters</th>
       <td>
         <% for cluster in @model.get("clusters").models: %>
           <a href="<%=cluster.get("routeURL")%>"><%=cluster.get("name")%></a><br/>
@@ -18,7 +18,7 @@
     </tr>
 
     <tr>
-      <th>Nodes</th>
+      <th>Total Nodes</th>
       <td>
         <% for node in @model.nodes().models: %>
           <a href="<%=node.get('routeURL')%>"><%=node.get('hostname')%></a><br/>

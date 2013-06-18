@@ -1,6 +1,7 @@
 class Nutcracker.Routers.Overview extends Backbone.Router
   routes:
     '' : 'index'
+    'config' : 'showConfig'
     'clusters/:cluster' : 'showCluster'
     'nodes/:node' : 'showNode'
 
@@ -11,12 +12,17 @@ class Nutcracker.Routers.Overview extends Backbone.Router
       @_show Nutcracker.Views.Overview
 
   showCluster: (cluster)=>
-    model = Nutcracker.overview.clusters().findWhere name: cluster
-    @_show Nutcracker.Views.Cluster, {model}
+    collection = Nutcracker.overview.clusters()
+    model = collection.findWhere name: cluster
+    @_show Nutcracker.Views.Cluster, {model, collection}
 
   showNode: ( node )=>
-    model = Nutcracker.overview.nodes().findWhere hostname: node
-    @_show  Nutcracker.Views.Node, {model}
+    collection = Nutcracker.overview.nodes()
+    model = collection.findWhere hostname: node
+    @_show  Nutcracker.Views.Node, {model,collection}
+
+  showConfig: ()=>
+    @_show  Nutcracker.Views.Configuration
 
   _show: (view,options = model: Nutcracker.overview) =>
     Nutcracker.screen.body new view options

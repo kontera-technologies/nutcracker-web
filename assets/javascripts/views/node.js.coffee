@@ -2,6 +2,10 @@ class Nutcracker.Views.Node extends Backbone.View
   template: JST['node']
 
   render: ->
+    @curIndex = @collection.indexOf(@model)
+    @nextNode = @collection.at @curIndex+1
+    @prevNode = @collection.at @curIndex-1
+
     options = {
       is3D: true
       titleTextStyle:
@@ -20,7 +24,7 @@ class Nutcracker.Views.Node extends Backbone.View
         position: 'bottom'
     }
     
-    @$el.html @template {@model}
+    @$el.html @template {@model,@nextNode,@prevNode}
     @$el.find("#chart1").append new Backbone.GoogleChart({
       beforeDraw: (options)-> # move this to GoogleChart
         options.dataTable = google.visualization.arrayToDataTable options.dataTable

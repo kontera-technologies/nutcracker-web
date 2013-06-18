@@ -2,7 +2,11 @@ class Nutcracker.Views.Cluster extends Backbone.View
   template: JST['cluster']
 
   render: ->
-    @$el.html @template {@model}
+    @curIndex = @collection.indexOf(@model)
+    @nextCluster = @collection.at @curIndex+1
+    @prevCluster = @collection.at @curIndex-1
+
+    @$el.html @template {@model, @nextCluster, @prevCluster}
 
     options = {
       is3D: true

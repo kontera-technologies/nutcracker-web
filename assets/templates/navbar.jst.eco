@@ -10,7 +10,9 @@
       <div class="nav-collapse collapse navbar-responsive-collapse">
         <ul class="nav">
           <li class="divider-vertical"></li>
-          <li id="overview" ><a href="#">Overview</a></li>
+          <li id="overview" ><a href="#/">Overview</a></li>
+          <li class="divider-vertical"></li>
+          <li id="config" ><a href="#/config">Config </a></li>
           <li class="divider-vertical"></li>
           <li id="clusters" class="dropdown">
             <a class="dropdown-toggle" id="drop4" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Clusters <b class="caret"></b></a>
@@ -45,8 +47,6 @@
             </ul>
           </li>
 
-          <li class="divider-vertical"></li>
-          <li id="configuration" ><a href="#configuration">Configuration </a></li>
           <li class="divider-vertical"></li>
         </ul>
 
