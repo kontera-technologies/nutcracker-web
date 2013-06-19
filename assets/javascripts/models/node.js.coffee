@@ -3,6 +3,7 @@ class Nutcracker.Models.Node extends Backbone.Model
     "#/nodes/#{hostname.split(":")[0..1].join(":")}"
 
   initialize: ->
+    @set 'clusters', []
     @set 'hostname',   @get('server_url')?.replace(/redis:\/\//,'')
     @set 'maxMemory',  @get('info').max_memory
     @set 'usedMemory', @get('info').used_memory

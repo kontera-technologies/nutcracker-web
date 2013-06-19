@@ -26,12 +26,10 @@ class Nutcracker.Views.Node extends Backbone.View
     
     @$el.html @template {@model,@nextNode,@prevNode}
     @$el.find("#chart1").append new Backbone.GoogleChart({
-      beforeDraw: (options)-> # move this to GoogleChart
-        options.dataTable = google.visualization.arrayToDataTable options.dataTable
-        new Nutcracker.Utils.GenericFormatter(
-          humanize.filesize
-        ).format(options.dataTable, 1)
       chartType: 'PieChart'
+      formatter:
+        callback: humanize.filesize
+        columns: [1]
       options: _(title: 'Memory').extend options
       dataTable: [
           ['Memory', 'Memory'],
@@ -41,11 +39,9 @@ class Nutcracker.Views.Node extends Backbone.View
     }).render().el
 
     @$el.find("#chart2").append new Backbone.GoogleChart({
-      beforeDraw: (options)-> # move this to GoogleChart
-        options.dataTable = google.visualization.arrayToDataTable options.dataTable
-        new Nutcracker.Utils.GenericFormatter(
-          humanize.numberFormat
-        ).format(options.dataTable, 1)
+      formatter:
+        callback: humanize.numberFormat
+        columns: [1]
       chartType: 'PieChart'
       options: _(title: 'Hits').extend options
       dataTable: [

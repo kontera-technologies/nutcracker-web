@@ -18,7 +18,7 @@ class Backbone.GoogleChart extends Backbone.View
   ###
   initialize: ( options ) ->
     chartOptions = _.extend({},options)
-    ['el', 'id', 'attributes', 'className', 'tagName'].map (key)->
+    ['el','id','attributes','className','tagName'].map (key)=>
       delete chartOptions[key]
 
     google.load 'visualization', '1', packages: ['corechart'], callback: =>
@@ -26,10 +26,25 @@ class Backbone.GoogleChart extends Backbone.View
 
     @onGoogleLoad =>
       @google = google.visualization
-      ( chartOptions.beforeDraw || -> )(chartOptions)
+      if chartOptions.dataTable instanceof Array
+        chartOptions.dataTable = @google.arrayToDataTable chartOptions.dataTable
+      (chartOptions.beforeDraw||->) @, chartOptions
+
+      if formatter = chartOptions.formatter
+        [0..chartOptions.dataTable.getNumberOfRows()-1].map (index)=>
+          formatter.columns.map (column)=>
+            chartOptions.dataTable.setFormattedValue(
+              index, column, formatter.callback(
+                chartOptions.dataTable.getValue index, column
+              )
+            )
+
       @wrapper = new @google.ChartWrapper chartOptions
       ['ready','select', 'error'].map @listen
 
+  ###
+  # Execute a callback once google visualization fully loaded
+  ###
   onGoogleLoad: ( callback  )=>
     if callback == "loaded"
       @googleLoaded = true

@@ -30,9 +30,9 @@ class Nutcracker.Views.Cluster extends Backbone.View
       data.push [node.get("hostname"),node.get("info").max_memory]
 
     chart = new Backbone.GoogleChart({
-      beforeDraw: (options)-> # move this to GoogleChart
-        options.dataTable = google.visualization.arrayToDataTable options.dataTable
-        formatter.format(options.dataTable, 1)
+      formatter:
+        callback: humanize.filesize
+        columns: [1]
       chartType: 'PieChart'
       options: options
       dataTable: data
@@ -45,9 +45,9 @@ class Nutcracker.Views.Cluster extends Backbone.View
 
     @$el.find("#chart2").html chart.render().el
     @$el.find("#chart1").html new Backbone.GoogleChart({
-      beforeDraw: (options)->
-        options.dataTable = google.visualization.arrayToDataTable options.dataTable
-        formatter.format(options.dataTable, 1)
+      formatter:
+        callback: humanize.filesize
+        columns: [1]
       chartType: 'PieChart'
       options: options
       dataTable: [

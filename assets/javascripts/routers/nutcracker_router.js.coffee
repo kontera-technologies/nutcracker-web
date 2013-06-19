@@ -1,14 +1,14 @@
 class Nutcracker.Routers.Overview extends Backbone.Router
   routes:
-    '' : 'index'
+    '' : 'showOverview'
     'config' : 'showConfig'
     'clusters/:cluster' : 'showCluster'
     'nodes/:node' : 'showNode'
 
   initialize: ->
-    @index()
+    @showOverview()
 
-  index: =>
+  showOverview: =>
       @_show Nutcracker.Views.Overview
 
   showCluster: (cluster)=>

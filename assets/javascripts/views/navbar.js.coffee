@@ -17,7 +17,7 @@ class Nutcracker.Views.Navbar extends Backbone.View
 
   routeChange: (route, object, action, args) =>
     @resetButtons()
-    if /index/g.test action
+    if /showOverview/g.test action
       @activate '#overview'
     if /showConfig/.test action
       @activate '#config'

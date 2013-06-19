@@ -6,7 +6,11 @@
   <% else: %>
     <li class="previous disabled nosel"><a>&larr; Prev</a></li>
   <%end%>
-  
+ 
+  <% for cluster in @model.get("clusters"): %>
+    <li class="nosel"><a class="nextPrevButton" href="<%= cluster.get('routeURL')%>"><%=cluster.get('name')%></a></li>
+  <% end %>
+
   <%if @nextNode: %>
     <li class="next nosel"><a class="nextPrevButton" href="<%= @nextNode?.get("routeURL")%>">Next &rarr;</a></li>
   <% else: %>
@@ -14,18 +18,18 @@
   <%end%>
   </li>
 </ul>
-
 </br>
-</hr>
-
-<div class="row">
-  <div  class="span6">
-    <div id="chart1" style="padding-left: 17%"></div>
-  </div>
-  <div class="span6">
-    <div id="chart2" style="padding-left: 17%"></div>
+<div class="chartsBox">
+  <div class="row">
+    <div  class="span5">
+      <div id="chart1" style="padding-left: 26%"></div>
+    </div>
+    <div class="span5">
+      <div id="chart2" style="padding-left: 40%"></div>
+    </div>
   </div>
 </div>
+
 <br/>
 <div class="row-fluid">
   <div class="span6">
@@ -65,3 +69,5 @@
   </div>
 
 </div>
+
+
