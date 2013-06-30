@@ -4,10 +4,6 @@
  */
 body { padding-top: 60px; }
 
-.glowing {
-  color: #ffffff;
-}
-
 a.nextPrevButton,a.nextPrevButton:hover  {
   color: #333333;
 }

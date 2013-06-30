@@ -22,9 +22,8 @@ class Nutcracker.Routers.Overview extends Backbone.Router
     @_show  Nutcracker.Views.Node, {model,collection}
 
   showConfig: ()=>
-    @_show  Nutcracker.Views.Configuration
+    @_show  Nutcracker.Views.Config
 
   _show: (view,options = model: Nutcracker.overview) =>
     Nutcracker.screen.body new view options
-
 

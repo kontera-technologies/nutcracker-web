@@ -3,7 +3,7 @@
 <br/>
 <% for conf in _(@model.get("config")).map( (v,k)->[k,v]): %>
   <table class="table table-striped table-bordered">
-      <tr><th>Cluster</th><td><%-"<a href=#{Nutcracker.Models.Cluster.routeURL conf[0]}>#{conf[0]}</a>"%></td></tr>
+      <tr><th>Name</th><td><%-"<a href=#{Nutcracker.Models.Cluster.routeURL conf[0]}>#{conf[0]}</a>"%></td></tr>
       <tr><th>Servers</th><td><%-conf[1].servers.map((s)->"<a href=#{Nutcracker.Models.Node.routeURL(s)}>#{s}</a>").join("<br/>")%></td></tr>
       <% for array in _(conf[1]).map((v,k)->[k,v]): %>
         <%if not /servers/.test array[0]:%>
