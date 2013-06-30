@@ -3,13 +3,13 @@ Nutcracker Web
 
 [Nutcracker](https://github.com/kontera-technologies/nutcracker) web interface plugin
 
-<img src="https://github.com/kontera-technologies/jenkins-status-tool/raw/master/pics/pic1.png" align="middle"/></br>
+<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic1.png" align="middle"/></br>
 
-<img src="https://github.com/kontera-technologies/jenkins-status-tool/raw/master/pics/pic2.png" align="middle"/></br>
+<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic2.png" align="middle"/></br>
 
-<img src="https://github.com/kontera-technologies/jenkins-status-tool/raw/master/pics/pic3.png" align="middle"/></br>
+<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic3.png" align="middle"/></br>
 
-<img src="https://github.com/kontera-technologies/jenkins-status-tool/raw/master/pics/pic4.png" align="middle"/></br>
+<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic4.png" align="middle"/></br>
 
 ### Installation 
 add this to your Gemfile and run `bundle install`
