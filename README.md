@@ -38,5 +38,5 @@ nutcracker.use(:graphite, port: 1234)
 nutcracker.join
 ```
 
-`Nutcracker-Web` takes default [Rack](https://github.com/rack/rack) adapter [options](https://github.com/rack/rack/blob/master/lib/rack/server.rb#L187..L199)
+`Nutcracker-Web` takes default [Rack](https://github.com/rack/rack) [options](https://github.com/rack/rack/blob/master/lib/rack/server.rb#L187..L199)
 
