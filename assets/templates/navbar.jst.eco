@@ -17,15 +17,12 @@
           <li id="clusters" class="dropdown">
             <a class="dropdown-toggle" id="drop4" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Clusters <b class="caret"></b></a>
             <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-              <% showDivider = true %>
+              <li class='divider'></li>
               <% for cluster in @model.get("clusters").models: %>
                 <li role="presentation" style="font-size: 15px">
                   <a role="menuitem" tabindex="-1" href="<%=cluster.get('routeURL')%>"><%=cluster.get('name')%></a>
                 </li>
-                <%if (showDivider = !showDivider):%>
-                  <li class='divider'></li>
-                <% end %>
-                
+                <li class='divider'></li>
               <% end %>
             </ul>
           </li>
@@ -34,16 +31,13 @@
           <li id="nodes" class="dropdown">
             <a class="dropdown-toggle" id="drop5" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Nodes <b class="caret"></b></a>
             <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop5">
-              <% showDivider2 = true %>
+              <li class='divider'></li>
               <% for node in @model.nodes().models: %>
                 <li role="presentation" style="font-size: 15px">
                   <a role="menuitem" tabindex="-1" href="<%=node.get("routeURL")%>"><%=node.get("hostname")%></a>
                 </li>
-                <%if (showDivider2 = !showDivider):%>
-                  <li class='divider'></li>
-                <% end %>
+                <li class='divider'></li>
               <% end %>
-              
             </ul>
           </li>
 
@@ -59,4 +53,3 @@
     </div>
   </div><!-- /navbar-inner -->
 </div><!-- /navbar -->
-

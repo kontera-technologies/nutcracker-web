@@ -12,6 +12,7 @@ class Nutcracker.Models.Overview extends Backbone.Model
   nodes: =>
     new Backbone.Collection(_(@get("clusters").pluck("nodes")).chain()
       .pluck("models")
+      .uniq((o)-> o.server_name)
       .flatten()
       .value()
     )
