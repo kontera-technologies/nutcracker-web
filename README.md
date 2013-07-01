@@ -57,9 +57,9 @@ nutcracker.join
 ### Developer
 to run nutcracker-web with stub data
 - `bundle install`
-- run the `rackup` command to start the service
-- edit `example.json`
-- the client Backbone app is under `assets` and the Sinatra server is under the `lib` directory, reload to page for changes to take affect
+- run the `rackup` command to start the service.
+- edit `example.json`.
+- client Backbone app is under `assets` and the Sinatra backend is under the `lib` directory.
 
 ### Packaging & Testing
 - `rake compile` : compile the assets into a single application.{js,css} file under the public directory
