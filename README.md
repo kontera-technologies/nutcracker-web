@@ -8,6 +8,10 @@ Nutcracker Web
 <img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic3.png"/></br>
 <img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic4.png"/></br>
 
+### Dependencies
+- Ruby 1.9.2+
+- [Nutcracker](https://github.com/kontera-technologies/nutcracker)
+
 ### Installation 
 add this to your Gemfile
 ```
@@ -29,28 +33,24 @@ require 'nutcracker/web'
 nutcracker = Nutcracker.start(config_file: 'cluster.conf')
 
 # Start the web service on port 1234 using Webrick
-nutcracker.use(:graphite, Port: 1234)
+nutcracker.use(:web, Port: 1234)
 
 # Sleeping....
 nutcracker.join
 ```
 
-`Nutcracker-Web` takes default [Rack](https://github.com/rack/rack) [options](https://github.com/rack/rack/blob/master/lib/rack/server.rb#L187..L199)
+`Nutcracker-Web` takes default [rack](https://github.com/rack/rack) [options](https://github.com/rack/rack/blob/master/lib/rack/server.rb#L187..L199)
 
 ### Custom Webserver
-default webserver is `Webrick`, to use a different one, like [thin](http://code.macournoyer.com/thin/):
+to use a different webserver like [thin](http://code.macournoyer.com/thin/)
 
-```
-$ gem install thin
-```
-
-tell `Nutcracker-Web` to use it
 ```ruby
 require 'nutcracker'
 require 'nutcracker/web'
 require 'thin'
 
 nutcracker = Nutcracker.start(config_file: 'cluster.conf')
-nutcracker.use(:graphite, Port: 1234, server: :thin)
+nutcracker.use(:web, Port: 1234, server: :thin)
 nutcracker.join
 ```
+
