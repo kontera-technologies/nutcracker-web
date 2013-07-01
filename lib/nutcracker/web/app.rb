@@ -44,7 +44,6 @@ __END__
     %script(type='text/javascript' src='http://www.google.com/jsapi')
     %script(type='text/javascript' src='assets/application.js')
     %link(rel='stylesheet' href='assets/application.css')
-    %link(rel="shortcut icon" href="http://publishers.kontera.com/favicon.ico")
   %body
     = yield
 
