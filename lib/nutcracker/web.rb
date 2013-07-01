@@ -3,12 +3,11 @@ require "rack"
 module Nutcracker
   module Web
     def self.start(nutcracker, options = {})
-      $nutcracker = nutcracker
       @thread = Thread.new do
         Thread.current.abort_on_exception=true
         Rack::Server.start(
           {
-            :app => Nutcracker::Web::App,
+            :app => App.new(nutcracker),
             :environment => 'production',
             :pid => nil,
             :Port => 9292,

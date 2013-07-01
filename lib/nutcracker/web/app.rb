@@ -7,13 +7,18 @@ module Nutcracker
     class App < Sinatra::Base
       enable :inline_templates
       set :root, File.expand_path('../'*4,__FILE__)
+      
+      def initialize(nutcracker = nil)
+        @nutcracker = nutcracker
+        super()
+      end
 
       get '/' do
         haml :index
       end
       
       def overview
-        $nutcracker.overview rescue
+        @nutcracker.overview rescue
          JSON.parse File.read File.join(settings.root,"example.json")
       end
       
