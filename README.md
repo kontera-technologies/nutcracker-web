@@ -8,6 +8,7 @@ Nutcracker Web
 
 ### Disclaimer
 this project is still in its early stages, so things could be a little buggy, if you find one, feel free to [report](https://github.com/kontera-technologies/nutcracker-web/issues) it.
+Also nutcracker-web only supports Redis instances for now.
 
 ### Dependencies
 - Ruby 1.9+
