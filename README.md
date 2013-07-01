@@ -53,4 +53,7 @@ nutcracker = Nutcracker.start(config_file: 'cluster.conf')
 nutcracker.use(:web, Port: 1234, server: :thin)
 nutcracker.join
 ```
-
+### Developer?
+- run the `rackup` command to run the service on your local machine
+- edit `example.json`
+- run `rake compile` to compile the assets before packaging
