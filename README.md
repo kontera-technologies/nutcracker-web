@@ -12,7 +12,7 @@ Also nutcracker-web only supports Redis instances for now.
 
 ### Dependencies
 - Ruby 1.9+
-- [Nutcracker](https://github.com/kontera-technologies/nutcracker)
+- [nutcracker-ruby](https://github.com/kontera-technologies/nutcracker)
 
 ### Installation 
 add this to your Gemfile
