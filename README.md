@@ -39,7 +39,7 @@ nutcracker.join
 
 ### Custom Webserver
 default webserver is `Webrick`, to use a different one, like [thin](http://code.macournoyer.com/thin/):
-install it
+
 ```
 $ gem install thin
 ```
