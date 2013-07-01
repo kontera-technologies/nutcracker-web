@@ -2,18 +2,18 @@ require "rack"
 
 module Nutcracker
   module Web
-    def self.start nutcracker, options
+    def self.start(nutcracker, options = {})
+      $nutcracker = nutcracker
       @thread = Thread.new do
         Thread.current.abort_on_exception=true
-        Thread.current[:nutcracker] = nutcracker
         Rack::Server.start(
           {
-            :environment => 'development',
+            :app => Nutcracker::Web::App,
+            :environment => 'production',
             :pid => nil,
-            :Port => 9393,
+            :Port => 9292,
             :Host => '0.0.0.0',
-            :AccessLog => [],
-            :config => File.expand_path("../../../config.ru", __FILE__)
+            :AccessLog => []
           }.merge( options )
         )
       end

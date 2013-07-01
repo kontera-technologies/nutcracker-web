@@ -1,7 +1,5 @@
 require 'haml'
 require 'sinatra'
-require 'eco'
-require 'sprockets'
 require 'json'
 
 module Nutcracker
@@ -9,19 +7,23 @@ module Nutcracker
     class App < Sinatra::Base
       enable :inline_templates
       set :root, File.expand_path('../'*4,__FILE__)
-      set :assets, Sprockets::Environment.new { |env|
-        %w(javascripts stylesheets templates).each { |asset|
-          env.append_path File.join(settings.root,"assets/#{asset}")
-        }
-      }
 
       get '/' do
         haml :index
       end
       
       def overview
-        Thread.current[:nutcracker].overview rescue
+        $nutcracker.overview rescue
          JSON.parse File.read File.join(settings.root,"example.json")
+      end
+      
+      def self.assets
+        require 'sprockets'
+        Sprockets::Environment.new { |env|
+          %w(javascripts stylesheets templates).each { |asset|
+            env.append_path File.join(settings.root,"assets/#{asset}")
+          }
+        }
       end
 
     end

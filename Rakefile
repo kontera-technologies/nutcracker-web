@@ -1,19 +1,45 @@
 $:.unshift File.expand_path '../lib', __FILE__
-require 'nutcracker/web/version'
+require 'nutcracker/web'
 require 'rake'
 require 'rubygems/package_task'
 require "rake/testtask"
 
-Nutcracker::Web::GemSpec = eval File.read 'nutcracker-web.gemspec'
+desc "Compile assets"
+task :compile do
+  require 'logger'
+  require 'pathname'
+  require 'sprockets'
+  require 'uglifier'
+  require 'eco'
 
-task :gem => [:clobber_package]
-
-Gem::PackageTask.new Nutcracker::Web::GemSpec do |p|
-  p.gem_spec = Nutcracker::Web::GemSpec
+  rm_rf 'public'
+  mkdir_p 'public/assets'
+  build_dir = Pathname(File.dirname(__FILE__)).join("public/assets")
+  
+  environment = Nutcracker::Web::App.assets
+  environment.logger = Logger.new STDOUT
+  environment.js_compressor = Uglifier.new(mangle: true)
+  
+  %w( javascripts/application.js stylesheets/application.css ).each do |target|
+    target = File.expand_path("../assets/#{target}",__FILE__)
+    environment.logger.info "#{'#'*10} Building #{target} #{'#'*10} "
+    asset = environment[target] or abort "Unknown target #{target.inspect}"
+    prefix, basename = asset.pathname.to_s.split('/')[-2..-1]
+    asset.write_to build_dir.join(basename)
+  end
 end
 
-task :install => [:gem] do
-   sh "gem install pkg/nutcracker"
+Gem::PackageTask.new(eval File.read('nutcracker-web.gemspec')) do |pkg|
+  pkg.need_zip = false
+  pkg.need_tar = false
+end
+
+task :build => [:compile] do
+  `rake gem`
+end
+
+task :install => [:build] do
+   sh "gem install pkg/nutcracker-web"
    Rake::Task['clobber_package'].execute
 end
 
