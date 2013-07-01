@@ -10,9 +10,9 @@ module Nutcracker
       enable :inline_templates
       set :root, File.expand_path('../'*4,__FILE__)
       set :assets, Sprockets::Environment.new { |env|
-        env.append_path File.join(settings.root,'assets/javascripts')
-        env.append_path File.join(settings.root,'assets/stylesheets')
-        env.append_path File.join(settings.root,'assets/templates')
+        %w(javascripts stylesheets templates).each { |asset|
+          env.append_path File.join(settings.root,"assets/#{asset}")
+        }
       }
 
       get '/' do
