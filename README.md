@@ -1,15 +1,16 @@
 Nutcracker Web
 =============
 
-[Nutcracker](https://github.com/kontera-technologies/nutcracker) web interface plugin
+[Nutcracker](https://github.com/kontera-technologies/nutcracker) web interface plugin<br/>
+<a href="https://rubygems.org/gems/nutcracker-web"><img src=https://fury-badge.herokuapp.com/rb/nutcracker-web.png></a> 
 
-<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic1.png"/></br>
-<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic2.png"/></br>
 <img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic3.png"/></br>
-<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic4.png"/></br>
+
+### Disclaimer
+this project is still in its early stages, so things could be a little buggy, if you find one, feel free to [report](https://github.com/kontera-technologies/nutcracker-web/issues) it.
 
 ### Dependencies
-- Ruby 1.9.2+
+- Ruby 1.9+
 - [Nutcracker](https://github.com/kontera-technologies/nutcracker)
 
 ### Installation 
@@ -24,7 +25,6 @@ $ bundle install
 ```
 
 ### Usage
-example app 
 ```ruby
 require 'nutcracker'
 require 'nutcracker/web'
@@ -39,7 +39,7 @@ nutcracker.use(:web, Port: 1234)
 nutcracker.join
 ```
 
-`Nutcracker-Web` takes default [rack](https://github.com/rack/rack) [options](https://github.com/rack/rack/blob/master/lib/rack/server.rb#L187..L199)
+you can pass default [Rack](https://github.com/rack/rack) [options](https://github.com/rack/rack/blob/master/lib/rack/server.rb#L187..L199) to `Nutcracker#use` ( like :Host, :server etc)
 
 ### Custom Webserver
 to use a different webserver like [thin](http://code.macournoyer.com/thin/)
@@ -53,7 +53,25 @@ nutcracker = Nutcracker.start(config_file: 'cluster.conf')
 nutcracker.use(:web, Port: 1234, server: :thin)
 nutcracker.join
 ```
-### Developer?
-- run the `rackup` command to run the service on your local machine
+
+### Developer
+to run nutcracker-web with stub data
+- `bundle install`
+- run the `rackup` command to start the service
 - edit `example.json`
-- run `rake compile` to compile the assets before packaging
+- the client Backbone app is under `assets` and the Sinatra server is under the `lib` directory, reload to page for changes to take affect
+
+### Packaging & Testing
+- `rake compile` : compile the assets into a single application.{js,css} file under the public directory
+- `rake build` : compile the assets & builds a new gem
+- `rake test` : runs the jasmine tests suite
+
+### Warranty
+This software is provided “as is” and without any express or implied warranties, including, without limitation, the implied warranties of merchantability and fitness for a particular purpose.
+
+### More PNGs
+<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic1.png"/></br>
+<hr>
+<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic2.png"/></br>
+<hr>
+<img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic4.png"/></br>
