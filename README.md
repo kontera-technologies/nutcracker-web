@@ -7,7 +7,7 @@ Nutcracker Web
 <img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic3.png"/></br>
 
 ### Disclaimer
-this project is still in its early stages, so things could be a little buggy, if you find one, feel free to [report](https://github.com/kontera-technologies/nutcracker-web/issues) it.
+this project is still in its early stages so things could be a little buggy, if you find one feel free to [report](https://github.com/kontera-technologies/nutcracker-web/issues) it.
 Also nutcracker-web only supports Redis instances for now.
 
 ### Dependencies
@@ -54,6 +54,9 @@ nutcracker = Nutcracker.start(config_file: 'cluster.conf')
 nutcracker.use(:web, Port: 1234, server: :thin)
 nutcracker.join
 ```
+
+### Gotchas
+- `redis.conf` : don't forget to configure the `maxmemory` attribute for each Redis instance
 
 ### Developer
 to run nutcracker-web with stub data
