@@ -46,8 +46,8 @@ class Nutcracker.Views.Node extends Backbone.View
       options: _(title: 'Hits').extend options
       dataTable: [
         ['Memory', 'Memory'],
-        ['Hits', @model.get("info").hits],
-        ['Misses', @model.get("info").misses]
+        ['Hits', @model.get("hits")],
+        ['Misses', @model.get("misses")]
       ],
     }).render().el
 

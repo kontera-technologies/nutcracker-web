@@ -22,10 +22,10 @@ class Nutcracker.Views.Cluster extends Backbone.View
       legend:
         position: 'bottom'
     }
-
+      
     data = [['Node','Node']]
     @model.get("nodes").map (node)->
-      data.push [node.get("hostname"),node.get("info").max_memory]
+      data.push [node.get("hostname"),node.get("maxMemory")]
 
     chart = new Backbone.GoogleChart({
       formatter:

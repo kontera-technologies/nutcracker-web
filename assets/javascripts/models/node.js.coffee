@@ -11,4 +11,12 @@ class Nutcracker.Models.Node extends Backbone.Model
     @set 'usedMemoryRss', @get('info').used_memory_rss
     @set 'fragmentation', @get('info').fragmentation
     @set 'freeMemory', 0 if @get('freeMemory') < 0
+    @set 'hits',   @get('info').hits
+    @set 'misses', @get('info').misses
+    
+    @set('maxMemory',@get('usedMemory')) if @get('maxMemory') == 0
+    @set('hits',1) if @get('hits') == 0
+    
     @set 'routeURL', @constructor.routeURL @get('hostname')
+    
+    
