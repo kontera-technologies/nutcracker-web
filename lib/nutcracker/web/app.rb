@@ -7,7 +7,7 @@ module Nutcracker
     class App < Sinatra::Base
       enable :inline_templates
       set :root, File.expand_path('../'*4,__FILE__)
-      
+
       def initialize(nutcracker = nil)
         @nutcracker = nutcracker
         super()
@@ -16,12 +16,17 @@ module Nutcracker
       get '/' do
         haml :index
       end
-      
+
+      get '/overview.json' do
+        content_type :json
+        overview.to_json
+      end
+
       def overview
         @nutcracker.overview rescue
          JSON.parse File.read File.join(settings.root,"example.json")
-      end
-      
+      end  
+
       def self.assets
         require 'sprockets'
         Sprockets::Environment.new { |env|
