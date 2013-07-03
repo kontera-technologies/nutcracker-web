@@ -19,13 +19,8 @@ module Nutcracker
 
       get '/overview.json' do
         content_type :json
-        overview.to_json
+        @nutcracker.overview.to_json
       end
-
-      def overview
-        @nutcracker.overview rescue
-         JSON.parse File.read File.join(settings.root,"example.json")
-      end  
 
       def self.assets
         require 'sprockets'
@@ -55,7 +50,7 @@ __END__
 @@ index
 #navbar
 .container
-  #container{ "data-clusters" => overview.to_json }
+  #container{ "data-clusters" => @nutcracker.overview.to_json }
     loading...
 #footer
 - 3.times do
