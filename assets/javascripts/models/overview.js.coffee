@@ -1,5 +1,30 @@
 class Nutcracker.Models.Overview extends Backbone.Model
-  initialize: ->
+  url: "/overview.json"
+  
+  initialize: => 
+    @postInit()
+    
+  nodes: =>
+    new Backbone.Collection(_(@get("clusters").pluck("nodes")).chain()
+      .pluck("models")
+      .uniq((o)-> o.server_name)
+      .flatten()
+      .value()
+    )
+  
+  fetch: =>
+    super and @postInit()
+
+    # reload the app
+    if window.location.hash == ""
+      Nutcracker.router.navigate('/',trigger: true)
+    else
+      Nutcracker.router.navigate(window.location.hash,trigger: true)
+  
+  clusters: =>
+    @get "clusters"
+  
+  postInit: =>
     clientConnections = _(@get("clusters").pluck("client_connections")).sum()
 
     serverConnections = 0
@@ -8,17 +33,8 @@ class Nutcracker.Models.Overview extends Backbone.Model
 
     @set "serverConnections", serverConnections
     @set "clientConnections", clientConnections
-
-  nodes: =>
-    new Backbone.Collection(_(@get("clusters").pluck("nodes")).chain()
-      .pluck("models")
-      .uniq((o)-> o.server_name)
-      .flatten()
-      .value()
-    )
-
-  clusters: =>
-    @get "clusters"
+    @set "initializeTime", new Date
+    
 
   set: ( attributes, options ) ->
     if attributes.clusters? and attributes.clusters not instanceof Nutcracker.Collections.Clusters
