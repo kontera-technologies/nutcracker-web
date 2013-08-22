@@ -1,6 +1,6 @@
 class Nutcracker.Views.Cluster extends Backbone.View
   template: JST['cluster']
-
+      
   render: ->
     @curIndex = @collection.indexOf(@model)
     @nextCluster = @collection.at @curIndex+1

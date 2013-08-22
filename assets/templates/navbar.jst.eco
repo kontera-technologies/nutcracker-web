@@ -15,7 +15,7 @@
           <li id="config" ><a href="#/config">Config </a></li>
           <li class="divider-vertical"></li>
           <li id="clusters" class="dropdown">
-            <a class="dropdown-toggle" id="drop4" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Clusters <b class="caret"></b></a>
+            <a class="dropdown-toggle" id="drop4" style="padding-top: 10px;" role="button" data-toggle="dropdown" href="#">Clusters <b class="caret"></b></a>
             <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
               <li class='divider'></li>
               <% for cluster in @model.get("clusters").models: %>
@@ -29,7 +29,7 @@
 
           <li class="divider-vertical"></li>
           <li id="nodes" class="dropdown">
-            <a class="dropdown-toggle" id="drop5" style="padding-top: 12px;" role="button" data-toggle="dropdown" href="#">Nodes <b class="caret"></b></a>
+            <a class="dropdown-toggle" id="drop5" style="padding-top: 10px;" role="button" data-toggle="dropdown" href="#">Nodes <b class="caret"></b></a>
             <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop5">
               <li class='divider'></li>
               <% for node in @model.nodes().models: %>
@@ -46,9 +46,30 @@
 
         <ul class="nav pull-right">
           <li class="divider-vertical"></li>
-          <li class="no-hl"><a>Version <%=@model.get("version")%></a></li>
+          <li id="auto-refresh-drop-down" class="dropdown">
+            <a class="dropdown-toggle" id="auto-refresh-drop" style="padding-top: 10px;" role="button" data-toggle="dropdown" href="#">Auto Refresh </a>
+            <ul id="auto-refresh-menu" class="dropdown-menu" role="menu" aria-labelledby="auto-refresh-drop">
+              <li id="auto-refresh-value-30" role="presentation" style="font-size: 15px">
+                <a class="auto-refresh-button" value="30" role="menuitem" tabindex="-1" href="">30 Seconds</a>
+              </li>
+              <li class='divider'></li>
+              <li id="auto-refresh-value-60" role="presentation" style="font-size: 15px">
+                <a class="auto-refresh-button" value="60" role="menuitem" tabindex="-1" href="">60 Seconds</a>
+              </li>
+              <li class='divider'></li>
+              <li id="auto-refresh-value-300" role="presentation" style="font-size: 15px">
+                <a class="auto-refresh-button" value="300" role="menuitem" tabindex="-1" href="">5 Minutes</a>
+              </li>
+              <li class='divider'></li>
+              <li id="auto-refresh-value-3600" role="presentation" style="font-size: 15px">
+                <a class="auto-refresh-button" value="3600" role="menuitem" tabindex="-1" href="">1 Hour</a>
+              </li>
+            </ul>
+          </li>
           <li class="divider-vertical"></li>
         </ul>
+
+              
       </div><!-- /.nav-collapse -->
     </div>
   </div><!-- /navbar-inner -->
