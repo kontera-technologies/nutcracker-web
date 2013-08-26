@@ -7,19 +7,14 @@ class Nutcracker.Models.Overview extends Backbone.Model
   nodes: =>
     new Backbone.Collection(_(@get("clusters").pluck("nodes")).chain()
       .pluck("models")
-      .uniq((o)-> o.server_name)
       .flatten()
+      .uniq(false, (o) -> o.get("hostname"))
       .value()
     )
   
   fetch: =>
     super and @postInit()
-
-    # reload the app
-    if window.location.hash == ""
-      Nutcracker.router.navigate('/',trigger: true)
-    else
-      Nutcracker.router.navigate(window.location.hash,trigger: true)
+    Nutcracker.reload()
   
   clusters: =>
     @get "clusters"
@@ -34,7 +29,6 @@ class Nutcracker.Models.Overview extends Backbone.Model
     @set "serverConnections", serverConnections
     @set "clientConnections", clientConnections
     @set "initializeTime", new Date
-    
 
   set: ( attributes, options ) ->
     if attributes.clusters? and attributes.clusters not instanceof Nutcracker.Collections.Clusters

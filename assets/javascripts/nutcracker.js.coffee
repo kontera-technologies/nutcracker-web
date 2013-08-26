@@ -5,6 +5,12 @@ window.Nutcracker =
   Views: {}
   Routers: {}
   Utils: {}
+  reload: ->
+    if window.location.hash == ""
+      Nutcracker.router.navigate('/',trigger: true)
+    else
+      Nutcracker.router.navigate(window.location.hash,trigger: true)
+  
 
   initialize: ->
     model = new Nutcracker.Models.Overview $('#container').data("clusters")
