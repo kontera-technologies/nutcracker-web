@@ -1,3 +1,5 @@
+require 'open-uri'
+require 'json'
 require 'haml'
 require 'sinatra'
 require 'json'
@@ -8,8 +10,9 @@ module Nutcracker
       enable :inline_templates
       set :root, File.expand_path('../'*4,__FILE__)
 
-      def initialize(nutcracker = nil)
+      def initialize(nutcracker, external_servers = [])
         @nutcracker = nutcracker
+        @external_servers = external_servers
         super()
       end
 
@@ -19,9 +22,9 @@ module Nutcracker
 
       get '/overview.json' do
         content_type :json
-        @nutcracker.overview.to_json
+        overview.to_json
       end
-
+      
       def self.assets
         require 'sprockets'
         Sprockets::Environment.new { |env|
@@ -30,7 +33,26 @@ module Nutcracker
           }
         }
       end
-
+      
+      private
+      
+      def overview
+        JSON.parse(@nutcracker.overview.to_json).tap do |internal|
+          internal["clusters"] += overview_from_external_servers["clusters"]
+        end
+      end
+      
+      def overview_from_external_servers
+        {"clusters" => []}.tap do |data|
+          Queue.new.tap do |q|          
+            @external_servers.map do |server|
+              Thread.new { q.push JSON.parse(open("http://#{server}/overview.json").read) }
+            end.each(&:join)
+            data["clusters"] += q.pop["clusters"] while not q.empty?
+          end # queue
+        end # data
+      end # def
+      
     end
   end
 end
@@ -50,7 +72,7 @@ __END__
 @@ index
 #navbar
 .container
-  #container{ "data-clusters" => @nutcracker.overview.to_json }
+  #container{ "data-clusters" => overview.to_json }
     loading...
 #footer
 - 3.times do
