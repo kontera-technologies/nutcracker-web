@@ -36,12 +36,8 @@ module Nutcracker
       
       private
       
-      def stringify hash
-        JSON.parse(hash.to_json)
-      end
-      
       def overview
-        stringify(@nutcracker.overview).tap do |internal|
+        JSON.parse(@nutcracker.overview.to_json).tap do |internal|
           internal["clusters"] += overview_from_external_servers["clusters"]
         end
       end
