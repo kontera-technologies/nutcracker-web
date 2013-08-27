@@ -25,12 +25,6 @@ module Nutcracker
         overview.to_json
       end
       
-      def overview
-        @nutcracker.overview.tap do |internal|
-          internal["clusters"] += overview_from_external_servers["clusters"]
-        end
-      end
-      
       def self.assets
         require 'sprockets'
         Sprockets::Environment.new { |env|
@@ -41,6 +35,16 @@ module Nutcracker
       end
       
       private
+      
+      def stringify hash
+        JSON.parse(hash.to_json)
+      end
+      
+      def overview
+        stringify(@nutcracker.overview).tap do |internal|
+          internal["clusters"] += overview_from_external_servers["clusters"]
+        end
+      end
       
       def overview_from_external_servers
         {"clusters" => []}.tap do |data|
