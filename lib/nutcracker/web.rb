@@ -7,7 +7,7 @@ module Nutcracker
         Thread.current.abort_on_exception=true
         Rack::Server.start(
           {
-            :app => App.new(nutcracker),
+            :app => App.new(nutcracker, options[:external_servers] || []),
             :environment => 'production',
             :pid => nil,
             :Port => 9292,
