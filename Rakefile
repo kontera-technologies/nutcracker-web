@@ -29,13 +29,16 @@ task :compile do
   end
 end
 
-Gem::PackageTask.new(eval File.read('nutcracker-web.gemspec')) do |pkg|
-  pkg.need_zip = false
-  pkg.need_tar = false
+task :build => [:compile] do
+  Gem::PackageTask.new(eval File.read 'nutcracker-web.gemspec') do |pkg|
+    pkg.need_zip = false
+    pkg.need_tar = false
+  end
+  Rake::Task["gem"].invoke
 end
 
-task :build => [:compile] do
-  `rake gem`
+task :gem do
+  abort "Please use rake build instead"
 end
 
 task :install => [:build] do
