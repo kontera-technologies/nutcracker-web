@@ -6,7 +6,7 @@
   <% else: %>
     <li class="previous disabled nosel"><a>&larr; Prev</a></li>
   <%end%>
-  
+
   <%if @nextCluster: %>
     <li class="next nosel"><a class="nextPrevButton" href="<%= @nextCluster?.get("routeURL")%>">Next &rarr;</a></li>
   <% else: %>
@@ -55,8 +55,8 @@
   <thead>
     <tr>
       <th>Host</th>
-      <th>Used Memory</th>
       <th>Free Memory</th>
+      <th>Used Memory</th>
       <th>Used Memory RSS</th>
       <th>Max Memory</th>
       <th>Fragmentation</th>
@@ -66,8 +66,8 @@
     <% for node in @model.get("nodes").models: %>
       <tr>
         <td><a href="<%=node.get("routeURL")%>"><%=node.get("hostname")%></a></td>
-        <td><%=humanize.filesize node.get("usedMemory")%></td>
         <td><%=humanize.filesize node.get("freeMemory")%></td>
+        <td><%=humanize.filesize node.get("usedMemory")%></td>
         <td><%=humanize.filesize node.get("usedMemoryRss")%></td>
         <td><%=humanize.filesize node.get("maxMemory")%></td>
         <td><%=node.get("fragmentation")%></td>
@@ -75,13 +75,11 @@
     <% end %>
     <tr>
       <td>&nbsp;</td>
-      <td><%=humanize.filesize _(@model.get("nodes").pluck("usedMemory")).sum()%></td>
       <td><%=humanize.filesize _(@model.get("nodes").pluck("freeMemory")).sum()%></td>
+      <td><%=humanize.filesize _(@model.get("nodes").pluck("usedMemory")).sum()%></td>
       <td><%=humanize.filesize _(@model.get("nodes").pluck("usedMemoryRss")).sum()%></td>
       <td><%=humanize.filesize _(@model.get("nodes").pluck("maxMemory")).sum()%></td>
       <td>~<%=humanize.numberFormat(_(@model.get("nodes").pluck("fragmentation")).average(),2)%></td>
     </tr>
   </tbody>
 </table>
-
-
