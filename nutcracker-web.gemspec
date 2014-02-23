@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'minitest', '~> 5.0.0'
   s.add_development_dependency 'mocha', '~> 0.14.0'
-  s.add_runtime_dependency 'nutcracker', '~> 0.2.4.5'
+  s.add_runtime_dependency 'nutcracker', '>= 0.2.4.5'
   s.add_runtime_dependency 'rack'
   s.add_runtime_dependency 'haml'
   s.add_runtime_dependency 'sinatra'
