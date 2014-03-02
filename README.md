@@ -12,14 +12,8 @@ Also nutcracker-web only supports Redis instances for now.
 
 ## Dependencies
 - Ruby 1.9+
-- [nutcracker-ruby](https://github.com/kontera-technologies/nutcracker)
 
 ## Installation
-with `bundler` just add this line to your `Gemfile` and then execute `bundle install`
-```
-gem 'nutcracker-web'
-```
-else you can manually install it by running
 ```
 gem install nutcracker-web
 ```
