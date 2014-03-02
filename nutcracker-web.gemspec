@@ -14,9 +14,10 @@ Gem::Specification.new do |s|
   s.homepage              = 'http://www.kontera.com'
   s.required_ruby_version = '>= 1.9.1'
   s.rubyforge_project     = "ruby-nutcracker-web"
-  s.files                 = %w(README.md Rakefile Gemfile Gemfile.lock public) + Dir.glob("{lib,public}/**/*")
+  s.files                 = %w(README.md Rakefile Gemfile Gemfile.lock public) + Dir.glob("{lib,public,bin}/**/*")
   s.require_path          = "lib"
-
+  s.bindir                = "bin"
+  s.executables           = %w(nutcracker-web)
   s.add_development_dependency 'minitest', '~> 5.0.0'
   s.add_development_dependency 'mocha', '~> 0.14.0'
   s.add_runtime_dependency 'nutcracker', '>= 0.2.4.5'

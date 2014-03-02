@@ -1,0 +1,98 @@
+#! /usr/bin/env ruby
+$:.unshift File.expand_path('../../lib',__FILE__)
+
+require 'nutcracker'
+require 'nutcracker/web'
+require 'optparse'
+require 'fileutils'
+require 'socket'
+require 'open3'
+
+options = { stats_port: 22222 }
+
+OptionParser.new do |opts|
+  opts.set_summary_indent "  "
+
+  opts.banner = "Usage: nutcracker-web [web-options] -- [nutcracker-options]"
+  opts.separator ""
+  opts.separator "[web-options]"
+  opts.separator ""
+  
+  opts.on("-s", "--stats-port PORT", "Nutcracker stats port - #{options[:stats_port]}") do |v|
+    options[:stats_port] = v.to_i
+  end
+
+  opts.on("-c","--config FILE", "Nutcracker cluster config file") do |v|
+    options[:config_file] = File.expand_path v
+  end
+
+  opts.on("-p","--port PORT", "Web interface listening port") do |v|
+    options[:Port] = v.to_i
+  end
+
+  opts.on("-b","--backend BACKEND", "Web server to use ( needs to be Rack compliant )") do |v|
+    options[:server] = v
+  end
+  
+  opts.on("-d", "--daemonize","run in background") do 
+    options[:daemonize] = true
+  end
+  
+  opts.on("-l", "--launch","launch Nutcracker instance as well") do 
+    options[:launch_nutcracker] = true
+  end
+  
+  opts.on("-i","--pid FILE","pid file") do |v|
+    options[:pid] = v
+    options[:nutcracker_pid] = v + ".nutcracker"
+  end
+  
+  opts.separator ""
+  opts.separator "[nutcracker-options]"
+  Open3.popen3("nutcracker --help") do |_,_,stderr|
+    opts.separator stderr.read.match(/options:(.*)/msi)[1]
+  end rescue nil
+  
+end.parse!
+
+abort "Please specified nutcracker config file" if options[:config_file].nil?
+abort "Can't find the specified config file @ #{options[:config_file]}" unless File.exists? options[:config_file]
+
+args = ARGV.to_a
+args << "--stats-port" << options[:stats_port]
+
+if options[:pid]
+  args << "--pid-file" << options[:nutcracker_pid]
+  at_exit { options.values_at(:pid,:nutcracker_pid).map(&FileUtils.method(:rm_rf)) }
+end
+
+if options[:daemonize]
+  if RUBY_VERSION < "1.9"
+    exit if fork
+    Process.setsid
+    exit if fork
+    Dir.chdir "/"
+    STDIN.reopen "/dev/null"
+    STDOUT.reopen "/dev/null", "a"
+    STDERR.reopen "/dev/null", "a"
+  else
+    Process.daemon
+  end  
+  File.open(options[:pid],'w') { |f| f.write(Process.pid) } rescue nil  
+end
+
+if options[:launch_nutcracker]
+  nutcracker = Nutcracker.start(options.merge(args: args))
+else
+  if (TCPSocket.new('127.0.0.1',options[:stats_port]) rescue nil)
+    nutcracker = Nutcracker.attach(options)
+  else
+   abort "Failed to attach, are you sure that Nutcracker is running ?\n"             + 
+         "the specified stats port is closed ( #{options[:stats_port]} )\n"          +
+         "If you want to launch Nutcracker instance as well use the --launch switch"
+  end
+end
+
+server = nutcracker.use(:web, options)
+
+( options[:launch_nutcracker] ? nutcracker : server ).join

@@ -25,6 +25,57 @@ gem install nutcracker-web
 ```
 
 ## Usage
+```
+$ nutcracker-web --help
+Usage: nutcracker-web [web-options] -- [nutcracker-options]
+
+[web-options]
+
+  -s, --stats-port PORT            Nutcracker stats port - 22222
+  -c, --config FILE                Nutcracker cluster config file
+  -p, --port PORT                  Web interface listening port
+  -b, --backend BACKEND            Web server to use ( needs to be Rack compliant )
+  -d, --daemonize                  run in background
+  -l, --launch                     launch Nutcracker instance as well
+  -i, --pid FILE                   pid file
+
+[nutcracker-options]
+
+  -h, --help             : this help
+  -V, --version          : show version and exit
+  -t, --test-conf        : test configuration for syntax errors and exit
+  -d, --daemonize        : run as a daemon
+  -D, --describe-stats   : print stats description and exit
+  -v, --verbosity=N      : set logging level (default: 5, min: 0, max: 11)
+  -o, --output=S         : set logging file (default: stderr)
+  -c, --conf-file=S      : set configuration file (default: conf/nutcracker.yml)
+  -s, --stats-port=N     : set stats monitoring port (default: 22222)
+  -a, --stats-addr=S     : set stats monitoring ip (default: 0.0.0.0)
+  -i, --stats-interval=N : set stats aggregation interval in msec (default: 30000 msec)
+  -p, --pid-file=S       : set pid file (default: off)
+  -m, --mbuf-size=N      : set size of mbuf chunk in bytes (default: 16384 bytes)
+
+```
+
+conneting to a running instance of Nutcracker and running the web interface on port 22122
+```
+$ nutcracker-web --config /etc/nutcracker/cluster.yml --port 22122
+[2014-03-02 17:26:40] INFO  WEBrick 1.3.1
+[2014-03-02 17:26:40] INFO  ruby 2.0.0 (2013-05-14) [x86_64-darwin11.4.2]
+[2014-03-02 17:26:40] INFO  WEBrick::HTTPServer#start: pid=84800 port=22122
+```
+
+launching Nutcracker and nutcracker-web
+```
+$ nutcracker-web --config /etc/nutcracker/cluster.yml --port 22122 --launch
+[Sun Mar  2 17:26:37 2014] nc.c:187 nutcracker-0.3.0 built for Darwin 13.0.0 x86_64 started on pid 84801
+[Sun Mar  2 17:26:37 2014] nc.c:192 run, rabbit run / dig that hole, forget the sun / and when at last the work is done / don't sit down / it's time to dig another one
+[2014-03-02 17:26:40] INFO  WEBrick 1.3.1
+[2014-03-02 17:26:40] INFO  ruby 2.0.0 (2013-05-14) [x86_64-darwin11.4.2]
+[2014-03-02 17:26:40] INFO  WEBrick::HTTPServer#start: pid=84800 p
+```
+
+## Usage via code
 After starting the nutcracker service via [nutcracker-ruby](https://github.com/kontera-technologies/nutcracker) just activate the `nutcracker-web` plugin:
 ```ruby
 require 'nutcracker'

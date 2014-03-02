@@ -19,6 +19,10 @@ module Nutcracker
       self
     end
     
+    def self.join
+      @thread.join
+    end
+    
     def self.stop
       @thread.kill
     end

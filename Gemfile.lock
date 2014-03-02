@@ -19,9 +19,12 @@ GEM
     hike (1.2.2)
     json (1.8.0)
     multi_json (1.7.5)
+    nutcracker (0.3.0.12)
+      redis
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
+    redis (3.0.7)
     sinatra (1.4.2)
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
@@ -48,6 +51,7 @@ DEPENDENCIES
   eco
   haml
   json
+  nutcracker
   sinatra
   sprockets
   thin
