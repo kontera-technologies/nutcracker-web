@@ -6,10 +6,6 @@ Web interface plugin for [nutcracker-ruby](https://github.com/kontera-technologi
 
 <img src="https://github.com/kontera-technologies/nutcracker-web/raw/master/pics/pic3.png"/></br>
 
-## Disclaimer
-this project is still in its early stages so things could be a little bit buggy, if you find one feel free to report it @ our issue [tracker](https://github.com/kontera-technologies/nutcracker-web/issues).<br/>
-Also nutcracker-web only supports Redis instances for now.
-
 ## Dependencies
 - Ruby 1.9+
 
@@ -124,3 +120,7 @@ to run nutcracker-web with stub data
 
 ## Warranty
 This software is provided “as is” and without any express or implied warranties, including, without limitation, the implied warranties of merchantability and fitness for a particular purpose.
+
+## Disclaimer
+this project is still in its early stages so things could be a little bit buggy, if you find one feel free to report it @ our issue [tracker](https://github.com/kontera-technologies/nutcracker-web/issues).<br/>
+Also nutcracker-web only supports Redis instances for now.
