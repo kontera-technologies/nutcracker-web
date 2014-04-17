@@ -47,7 +47,7 @@ Usage: nutcracker-web [web-options] -- [nutcracker-options]
 
 ```
 
-conneting to a running instance of twemproxy and running the web interface on port 22122
+conneting to a running instance of [twemproxy](https://github.com/twitter/twemproxy) and running the web interface on port 22122
 ```
 $ nutcracker-web --config /etc/nutcracker/cluster.yml --port 22122
 [2014-03-02 17:26:40] INFO  WEBrick 1.3.1
