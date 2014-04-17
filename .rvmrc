@@ -1,1 +1,1 @@
-rvm use 2.0.0-p195@nutcracker-web --create
+rvm use 2.1.0@nutcracker-web --create
