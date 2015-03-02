@@ -1,1 +1,1 @@
-rvm use 2.1.0@nutcracker-web --create
+rvm use ruby@nutcracker-web --create

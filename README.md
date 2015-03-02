@@ -57,7 +57,7 @@ $ nutcracker-web --config /etc/nutcracker/cluster.yml --port 22122
 
 launching Nutcracker and nutcracker-web
 ```
-$ nutcracker-web --config /etc/nutcracker/cluster.yml --port 22122 --launch
+$ nutcracker-web --config example-cluster.yml --port 22122 --launch
 [Sun Mar  2 17:26:37 2014] nc.c:187 nutcracker-0.3.0 built for Darwin 13.0.0 x86_64 started on pid 84801
 [Sun Mar  2 17:26:37 2014] nc.c:192 run, rabbit run / dig that hole, forget the sun / and when at last the work is done / don't sit down / it's time to dig another one
 [2014-03-02 17:26:40] INFO  WEBrick 1.3.1
