@@ -47,7 +47,7 @@ Usage: nutcracker-web [web-options] -- [nutcracker-options]
 
 ```
 
-conneting to a running instance of Nutcracker and running the web interface on port 22122
+conneting to a running instance of [twemproxy](https://github.com/twitter/twemproxy) and running the web interface on port 22122
 ```
 $ nutcracker-web --config /etc/nutcracker/cluster.yml --port 22122
 [2014-03-02 17:26:40] INFO  WEBrick 1.3.1
@@ -55,7 +55,7 @@ $ nutcracker-web --config /etc/nutcracker/cluster.yml --port 22122
 [2014-03-02 17:26:40] INFO  WEBrick::HTTPServer#start: pid=84800 port=22122
 ```
 
-launching Nutcracker and nutcracker-web
+launching twemproxy and nutcracker-web
 ```
 $ nutcracker-web --config example-cluster.yml --port 22122 --launch
 [Sun Mar  2 17:26:37 2014] nc.c:187 nutcracker-0.3.0 built for Darwin 13.0.0 x86_64 started on pid 84801
@@ -66,7 +66,7 @@ $ nutcracker-web --config example-cluster.yml --port 22122 --launch
 ```
 
 ## Usage via code
-After starting the nutcracker service via [nutcracker-ruby](https://github.com/kontera-technologies/nutcracker) just activate the `nutcracker-web` plugin:
+After starting the twemproxy service via [nutcracker-ruby](https://github.com/kontera-technologies/nutcracker) just activate the `nutcracker-web` plugin:
 ```ruby
 require 'nutcracker'
 require 'nutcracker/web'
