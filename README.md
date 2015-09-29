@@ -65,6 +65,11 @@ $ nutcracker-web --config example-cluster.yml --port 22122 --launch
 [2014-03-02 17:26:40] INFO  WEBrick::HTTPServer#start: pid=84800 p
 ```
 
+if you use `ElastiCache` you will need to specify  `maxmemory` for each node in your cluster
+```
+$ nutcracker-web --config example-cluster.yml --port 22122 --launch --max-memory 674963865666
+```
+
 ## Usage via code
 After starting the twemproxy service via [nutcracker-ruby](https://github.com/kontera-technologies/nutcracker) just activate the `nutcracker-web` plugin:
 ```ruby
@@ -72,10 +77,10 @@ require 'nutcracker'
 require 'nutcracker/web'
 
 # Start nutcracker
-nutcracker = Nutcracker.start(config_file: 'cluster.conf')
+nutcracker = Nutcracker.start config_file: 'cluster.conf'
 
 # Start the web service on port 1234 using Webrick
-nutcracker.use(:web, Port: 1234)
+nutcracker.use :web, Port: 1234
 
 # Sleeping....
 nutcracker.join
@@ -91,8 +96,8 @@ require 'nutcracker'
 require 'nutcracker/web'
 require 'thin'
 
-nutcracker = Nutcracker.start(config_file: 'cluster.conf')
-nutcracker.use(:web, Port: 1234, server: :thin)
+nutcracker = Nutcracker.start config_file: 'cluster.conf'
+nutcracker.use :web, Port: 1234, server: :thin
 nutcracker.join
 ```
 
