@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'json'
+require 'tilt/haml'
 require 'haml'
 require 'sinatra'
 require 'json'

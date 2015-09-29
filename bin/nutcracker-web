@@ -41,6 +41,10 @@ OptionParser.new do |opts|
   opts.on("-l", "--launch","launch Nutcracker instance as well") do 
     options[:launch_nutcracker] = true
   end
+
+  opts.on("-s", "--max-memory SIZE", "manually specify max memory for every redis node ( Use it for elastic cache )") do |v|
+    options[:max_memory] = v
+  end
   
   opts.on("-i","--pid FILE","pid file") do |v|
     options[:pid] = v
