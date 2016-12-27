@@ -19,7 +19,7 @@ OptionParser.new do |opts|
   opts.separator "[web-options]"
   opts.separator ""
 
-  opts.on("-s", "--stats-uri URI", "Nutcracker stats uri, default is tcp://localhost:22222") do |v|
+  opts.on("-u", "--stats-uri URI", "Nutcracker stats uri, default is tcp://localhost:22222") do |v|
     options[:stats_uri] = URI(v)
   end
 
