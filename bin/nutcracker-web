@@ -7,8 +7,9 @@ require 'optparse'
 require 'fileutils'
 require 'socket'
 require 'open3'
+require 'uri'
 
-options = { stats_port: 22222 }
+options = { stats_uri: URI("tcp://localhost:22222") }
 
 OptionParser.new do |opts|
   opts.set_summary_indent "  "
@@ -17,9 +18,9 @@ OptionParser.new do |opts|
   opts.separator ""
   opts.separator "[web-options]"
   opts.separator ""
-  
-  opts.on("-s", "--stats-port PORT", "Nutcracker stats port - #{options[:stats_port]}") do |v|
-    options[:stats_port] = v.to_i
+
+  opts.on("-u", "--stats-uri URI", "Nutcracker stats uri, default is tcp://localhost:22222") do |v|
+    options[:stats_uri] = URI(v)
   end
 
   opts.on("-c","--config FILE", "Nutcracker cluster config file") do |v|
@@ -63,7 +64,7 @@ abort "Please specified nutcracker config file" if options[:config_file].nil?
 abort "Can't find the specified config file @ #{options[:config_file]}" unless File.exists? options[:config_file]
 
 args = ARGV.to_a
-args << "--stats-port" << options[:stats_port]
+args << "--stats-port" << options[:stats_uri].port
 
 if options[:pid]
   args << "--pid-file" << options[:nutcracker_pid]
@@ -88,11 +89,11 @@ end
 if options[:launch_nutcracker]
   nutcracker = Nutcracker.start(options.merge(args: args))
 else
-  if (TCPSocket.new('127.0.0.1',options[:stats_port]) rescue nil)
+  if (TCPSocket.new(options[:stats_uri].host,options[:stats_uri].port) rescue nil)
     nutcracker = Nutcracker.attach(options)
   else
-   abort "Failed to attach, are you sure that Nutcracker is running ?\n"             + 
-         "the specified stats port is closed ( #{options[:stats_port]} )\n"          +
+   abort "Failed to attach, are you sure that Nutcracker is running ?\n" + 
+         "the specified stats port is closed ( #{options[:stats_uri].host}:#{options[:stats_uri].port} )\n" +
          "If you want to launch Nutcracker instance as well use the --launch switch"
   end
 end

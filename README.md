@@ -20,8 +20,7 @@ $ nutcracker-web --help
 Usage: nutcracker-web [web-options] -- [nutcracker-options]
 
 [web-options]
-
-  -s, --stats-port PORT            Nutcracker stats port - 22222
+  -u, --stats-uri URI              Nutcracker stats uri, default is tcp://localhost:22222
   -c, --config FILE                Nutcracker cluster config file
   -p, --port PORT                  Web interface listening port
   -b, --backend BACKEND            Web server to use ( needs to be Rack compliant )
