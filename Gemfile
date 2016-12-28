@@ -8,4 +8,4 @@ gem 'coffee-script'
 gem 'eco'
 gem 'json'
 gem 'uglifier'
-gem 'nutcracker'
+gem 'nutcracker', ">=0.4.1.20"

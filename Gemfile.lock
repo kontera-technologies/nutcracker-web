@@ -16,7 +16,7 @@ GEM
     haml (4.0.7)
       tilt
     json (1.8.3)
-    nutcracker (0.4.1.19)
+    nutcracker (0.4.1.20)
       redis
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -45,7 +45,7 @@ DEPENDENCIES
   eco
   haml
   json
-  nutcracker
+  nutcracker (>= 0.4.1.20)
   sinatra
   sprockets
   thin
