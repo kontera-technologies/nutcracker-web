@@ -2,18 +2,22 @@ require "rack"
 
 module Nutcracker
   module Web
-    def self.start(nutcracker, options = {})
+    def self.start(nutcracker, o = {})
       @thread = Thread.new do
         Thread.current.abort_on_exception=true
+
+        app = Rack::URLMap.new(o[:context] => 
+          App.new(nutcracker, o.fetch(:external_servers,[])))
+
         Rack::Server.start(
           {
-            :app => App.new(nutcracker, options[:external_servers] || []),
+            :app => app,
             :environment => 'production',
             :pid => nil,
             :Port => 9292,
             :Host => '0.0.0.0',
             :AccessLog => []
-          }.merge( options )
+          }.merge(o)
         )
       end
       self

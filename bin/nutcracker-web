@@ -3,13 +3,14 @@ $:.unshift File.expand_path('../../lib',__FILE__)
 
 require 'nutcracker'
 require 'nutcracker/web'
+require 'nutcracker/web/version'
 require 'optparse'
 require 'fileutils'
 require 'socket'
 require 'open3'
 require 'uri'
 
-options = { stats_uri: URI("tcp://localhost:22222") }
+options = { stats_uri: URI("tcp://localhost:22222"), context: "/"}
 
 OptionParser.new do |opts|
   opts.set_summary_indent "  "
@@ -34,6 +35,10 @@ OptionParser.new do |opts|
   opts.on("-b","--backend BACKEND", "Web server to use ( needs to be Rack compliant )") do |v|
     options[:server] = v
   end
+
+  opts.on("-x", "--context CONTEXT", "Web Interface URL context, default /") do |v|
+    options[:context] = "/#{v}".squeeze("/") 
+  end
   
   opts.on("-d", "--daemonize","run in background") do 
     options[:daemonize] = true
@@ -47,6 +52,10 @@ OptionParser.new do |opts|
     options[:max_memory] = v
   end
   
+  opts.on("-v", "--version", "Print version and exit") do
+    abort "Nutcracker-Web, Ver. #{Nutcracker::Web::VERSION}"
+  end
+
   opts.on("-i","--pid FILE","pid file") do |v|
     options[:pid] = v
     options[:nutcracker_pid] = v + ".nutcracker"
