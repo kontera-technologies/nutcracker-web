@@ -20,12 +20,16 @@ $ nutcracker-web --help
 Usage: nutcracker-web [web-options] -- [nutcracker-options]
 
 [web-options]
+
   -u, --stats-uri URI              Nutcracker stats uri, default is tcp://localhost:22222
   -c, --config FILE                Nutcracker cluster config file
   -p, --port PORT                  Web interface listening port
   -b, --backend BACKEND            Web server to use ( needs to be Rack compliant )
+  -x, --context CONTEXT            Web Interface URL context, default /
   -d, --daemonize                  run in background
   -l, --launch                     launch Nutcracker instance as well
+  -s, --max-memory SIZE            manually specify max memory for every redis node ( Use it for elastic cache )
+  -v, --version                    Print version and exit
   -i, --pid FILE                   pid file
 
 [nutcracker-options]
@@ -35,7 +39,7 @@ Usage: nutcracker-web [web-options] -- [nutcracker-options]
   -t, --test-conf        : test configuration for syntax errors and exit
   -d, --daemonize        : run as a daemon
   -D, --describe-stats   : print stats description and exit
-  -v, --verbosity=N      : set logging level (default: 5, min: 0, max: 11)
+  -v, --verbose=N        : set logging level (default: 5, min: 0, max: 11)
   -o, --output=S         : set logging file (default: stderr)
   -c, --conf-file=S      : set configuration file (default: conf/nutcracker.yml)
   -s, --stats-port=N     : set stats monitoring port (default: 22222)
