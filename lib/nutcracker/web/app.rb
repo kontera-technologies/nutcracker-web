@@ -64,7 +64,7 @@ __END__
 %html
   %head
     %title Nutcracker-Web
-    %script(type='text/javascript' src='http://www.google.com/jsapi')
+    %script(type='text/javascript' src='https://www.google.com/jsapi')
     %script(type='text/javascript' src='assets/application.js')
     %link(rel='stylesheet' href='assets/application.css')
   %body

@@ -29,6 +29,7 @@ task :compile do
   end
 end
 
+desc "Build new gem"
 task :build => [:compile] do
   Gem::PackageTask.new(eval File.read 'nutcracker-web.gemspec') do |pkg|
     pkg.need_zip = false
