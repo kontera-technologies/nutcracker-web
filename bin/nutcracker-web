@@ -10,7 +10,7 @@ require 'socket'
 require 'open3'
 require 'uri'
 
-options = { stats_uri: URI("tcp://localhost:22222"), context: "/"}
+options = { stats_uri: URI("tcp://localhost:22222") }
 
 OptionParser.new do |opts|
   opts.set_summary_indent "  "
