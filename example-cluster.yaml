@@ -4,5 +4,7 @@ root:
   distribution: ketama
   preconnect: true
   auto_eject_hosts: false
+  redis: true
+  redis_auth: shuki
   servers:
    - 127.0.0.1:6379:1
