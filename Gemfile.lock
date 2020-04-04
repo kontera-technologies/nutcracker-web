@@ -20,7 +20,7 @@ GEM
     mustermann (1.0.3)
     nutcracker (0.4.1.22)
       redis
-    rack (2.0.6)
+    rack (2.2.2)
     rack-protection (2.0.4)
       rack
     redis (4.0.2)
@@ -49,11 +49,11 @@ DEPENDENCIES
   eco
   haml
   nutcracker (>= 0.4.1.20)
-  rack (>= 2.0.6)
+  rack (>= 2.0.8)
   sinatra
   sprockets
   thin
   uglifier
 
 BUNDLED WITH
-   1.16.1
+   1.17.2
