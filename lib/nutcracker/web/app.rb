@@ -21,11 +21,45 @@ module Nutcracker
         haml :index
       end
 
+      get '/staus' do
+        # @nutcracker.config.values.map {|x|
+        #   x["servers"] # redis instancees
+        #   x["listen"]
+        # } # nutcracker
+        "hello world"
+
+        # def scan_port(port,ip)
+        #   socket = TCPSocket.new(ip,port)
+        #   return "ok"
+        # rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
+        #   return "not"
+        # end
+        #
+        # i=0
+        # results = []
+        # threads = []
+        #
+        # loop do
+        #     threads << Thread.new {results << scan_port(ports[i],ips[i])}
+        #     sleep 0.001
+        #     i+=1
+        #     break if i==ips.count
+        #   end
+        #
+        # threads.each(&:join)
+        # if results.include? 'not'
+        #   status 401
+        # else
+        #   status 200
+        # end
+      end
+
       get '/overview.json' do
         content_type :json
         overview.to_json
+        "hello world"
       end
-      
+
       def self.assets
         require 'sprockets'
         Sprockets::Environment.new { |env|
@@ -34,18 +68,18 @@ module Nutcracker
           }
         }
       end
-      
+
       private
-      
+
       def overview
         JSON.parse(@nutcracker.overview.to_json).tap do |internal|
           internal["clusters"] += overview_from_external_servers["clusters"]
         end
       end
-      
+
       def overview_from_external_servers
         {"clusters" => []}.tap do |data|
-          Queue.new.tap do |q|          
+          Queue.new.tap do |q|
             @external_servers.map do |server|
               Thread.new { q.push JSON.parse(open("http://#{server}/overview.json").read) }
             end.each(&:join)
@@ -53,7 +87,7 @@ module Nutcracker
           end # queue
         end # data
       end # def
-      
+
     end
   end
 end

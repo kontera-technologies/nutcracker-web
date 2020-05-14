@@ -6,7 +6,7 @@ module Nutcracker
       @thread = Thread.new do
         Thread.current.abort_on_exception=true
 
-        app = Rack::URLMap.new(o.fetch(:context,"/") => 
+        app = Rack::URLMap.new(o.fetch(:context,"/") =>
           App.new(nutcracker, o.fetch(:external_servers,[])))
 
         Rack::Server.start(
@@ -22,11 +22,11 @@ module Nutcracker
       end
       self
     end
-    
+
     def self.join
       @thread.join
     end
-    
+
     def self.stop
       @thread.kill
     end
