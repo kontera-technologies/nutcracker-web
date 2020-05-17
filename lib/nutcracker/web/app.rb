@@ -4,6 +4,9 @@ require 'tilt/haml'
 require 'haml'
 require 'sinatra'
 require 'json'
+require 'thread'
+require 'socket'
+
 
 module Nutcracker
   module Web
@@ -22,42 +25,36 @@ module Nutcracker
       end
 
       get '/staus' do
-        # @nutcracker.config.values.map {|x|
-        #   x["servers"] # redis instancees
-        #   x["listen"]
-        # } # nutcracker
-        "hello world"
+        def scan_port(port,ip)
+          socket = TCPSocket.new(ip,port)
+          return "ok"
+        rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
+          return "not"
+        end
 
-        # def scan_port(port,ip)
-        #   socket = TCPSocket.new(ip,port)
-        #   return "ok"
-        # rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
-        #   return "not"
-        # end
-        #
-        # i=0
-        # results = []
-        # threads = []
-        #
-        # loop do
-        #     threads << Thread.new {results << scan_port(ports[i],ips[i])}
-        #     sleep 0.001
-        #     i+=1
-        #     break if i==ips.count
-        #   end
-        #
-        # threads.each(&:join)
-        # if results.include? 'not'
-        #   status 401
-        # else
-        #   status 200
-        # end
+        results = []
+        threads = []
+
+        @nutcracker.config.values.map {|x|
+          x["servers"].each {|x|
+            y = x.split(":")
+            threads << Thread.new {results << scan_port(y[1],y[0])}
+            }  # redis instancees
+          x["listen"]
+        } # nutcracker
+
+        threads.each(&:join)
+
+        if results.include? 'not'
+          status 401
+        else
+          status 200
+        end
       end
 
       get '/overview.json' do
         content_type :json
         overview.to_json
-        "hello world"
       end
 
       def self.assets
