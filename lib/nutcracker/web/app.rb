@@ -37,10 +37,13 @@ module Nutcracker
 
         @nutcracker.config.values.map {|x|
           x["servers"].each {|x|
-            y = x.split(":")
-            threads << Thread.new {results << scan_port(y[1],y[0])}
+            r = x.split(":")
+            threads << Thread.new {results << scan_port(r[1],r[0])}
             }  # redis instancees
-          x["listen"]
+          x["listen"].each {|x|
+            l = x.split(":")
+            threads << Thread.new {results << scan_port(l[1],l[0])}
+            }
         } # nutcracker
 
         threads.each(&:join)
