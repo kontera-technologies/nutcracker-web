@@ -24,7 +24,7 @@ module Nutcracker
         haml :index
       end
 
-      get '/staus' do
+      get '/status' do
         def scan_port(port,ip)
           socket = TCPSocket.new(ip,port)
           return "ok"
@@ -35,16 +35,13 @@ module Nutcracker
         results = []
         threads = []
 
-        @nutcracker.config.values.map {|x|
-          x["servers"].each {|x|
-            r = x.split(":")
-            threads << Thread.new {results << scan_port(r[1],r[0])}
-            }  # redis instancees
-          x["listen"].each {|x|
-            l = x.split(":")
-            threads << Thread.new {results << scan_port(l[1],l[0])}
-            }
-        } # nutcracker
+        # [redis instancees + nutcracker] ports
+        ports = @nutcracker.config.values.map {|x| x["servers"] << x["listen"]}.flatten
+
+        ports.each {|x|
+          r = x.split(":")
+          threads << Thread.new {results << scan_port(r[1],r[0])}
+        }
 
         threads.each(&:join)
 
