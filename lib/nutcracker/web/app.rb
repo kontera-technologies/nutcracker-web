@@ -25,31 +25,12 @@ module Nutcracker
       end
 
       get '/status' do
-        def scan_port(port,ip)
-          socket = TCPSocket.new(ip,port)
-          return "ok"
-        rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
-          return "not"
-        end
-
-        results = []
-        threads = []
-
-        # [redis instancees + nutcracker] ports
-        ports = @nutcracker.config.values.map {|x| x["servers"] << x["listen"]}.flatten
-
-        ports.each {|x|
-          r = x.split(":")
-          threads << Thread.new {results << scan_port(r[1],r[0])}
-        }
-
-        threads.each(&:join)
-
-        if results.include? 'not'
-          status 401
-        else
-          status 200
-        end
+        @nutcracker.config.values.map {|x|
+          x["servers"] + [x["listen"]]}.flatten.map {|x|
+            x.split(":")}.map {|x|
+              Thread.new {TCPSocket.new(x[0],x[1]).close.nil? rescue false}}.map(&:value).all?.tap {|x|
+                 status(x ? 200 : 401)
+               }
       end
 
       get '/overview.json' do
