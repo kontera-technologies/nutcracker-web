@@ -25,12 +25,14 @@ module Nutcracker
       end
 
       get '/status' do
-        @nutcracker.config.values.map {|x|
-          x["servers"] + [x["listen"]]}.flatten.map {|x|
-            x.split(":")}.map {|x|
-              Thread.new {TCPSocket.new(x[0],x[1]).close.nil? rescue false}}.map(&:value).all?.tap {|x|
-                 status(x ? 200 : 401)
-               }
+        status_check.all? {|x| x[2]}.tap {|x|
+           status(x ? 200 : 401)
+         }
+      end
+
+      get '/status.json' do
+        content_type :json
+        JSON.pretty_generate(status_check.map {|x| "#{x[0]}:#{x[1]} is #{x[2].to_s.gsub(/true|false/) { |x| {"true" => "open", "false" => "closed"}[x]}}"})
       end
 
       get '/overview.json' do
@@ -65,6 +67,14 @@ module Nutcracker
           end # queue
         end # data
       end # def
+
+      def status_check
+        @nutcracker.config.values.map {|x|
+          x["servers"] + [x["listen"]]}.flatten.map {|x|
+            x.split(":")}.map {|x|
+              x - [x[2]] + [Thread.new {TCPSocket.new(x[0],x[1]).close.nil? rescue false}].map(&:value)
+            }
+      end
 
     end
   end
