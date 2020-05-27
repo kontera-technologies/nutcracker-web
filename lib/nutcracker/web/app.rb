@@ -4,6 +4,9 @@ require 'tilt/haml'
 require 'haml'
 require 'sinatra'
 require 'json'
+require 'thread'
+require 'socket'
+
 
 module Nutcracker
   module Web
@@ -21,11 +24,21 @@ module Nutcracker
         haml :index
       end
 
+      get '/status' do
+        @nutcracker.
+          config.
+          values.map {|x| x["servers"] + [x["listen"]]}.
+          flatten.map {|x| x.split(":")}.
+          map {|host, port| Thread.new {TCPSocket.new(host,port).close.nil? rescue false}}.map(&:value).
+          all?.
+          tap {|x| status(x ? 200 : 401)}
+      end
+
       get '/overview.json' do
         content_type :json
         overview.to_json
       end
-      
+
       def self.assets
         require 'sprockets'
         Sprockets::Environment.new { |env|
@@ -34,18 +47,18 @@ module Nutcracker
           }
         }
       end
-      
+
       private
-      
+
       def overview
         JSON.parse(@nutcracker.overview.to_json).tap do |internal|
           internal["clusters"] += overview_from_external_servers["clusters"]
         end
       end
-      
+
       def overview_from_external_servers
         {"clusters" => []}.tap do |data|
-          Queue.new.tap do |q|          
+          Queue.new.tap do |q|
             @external_servers.map do |server|
               Thread.new { q.push JSON.parse(open("http://#{server}/overview.json").read) }
             end.each(&:join)
@@ -53,7 +66,7 @@ module Nutcracker
           end # queue
         end # data
       end # def
-      
+
     end
   end
 end
