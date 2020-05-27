@@ -27,8 +27,10 @@ module Nutcracker
       get '/status' do
         @nutcracker.
           config.
-          values.map {|x| x["servers"] + [x["listen"]]}.
-          flatten.map {|x| x.split(":")}.
+          values.
+          map {|x| x["servers"] + [x["listen"]]}.
+          flatten.
+          map {|x| x.split(":")}.
           map {|host, port| Thread.new {TCPSocket.new(host,port).close.nil? rescue false}}.map(&:value).
           all?.
           tap {|x| status(x ? 200 : 401)}
