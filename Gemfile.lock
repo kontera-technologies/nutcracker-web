@@ -20,7 +20,7 @@ GEM
     mustermann (1.0.3)
     nutcracker (0.4.1.22)
       redis
-    rack (2.2.2)
+    rack (2.2.3)
     rack-protection (2.0.4)
       rack
     rake (13.0.1)
