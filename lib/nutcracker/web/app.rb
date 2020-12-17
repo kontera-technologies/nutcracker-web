@@ -62,7 +62,7 @@ module Nutcracker
         {"clusters" => []}.tap do |data|
           Queue.new.tap do |q|
             @external_servers.map do |server|
-              Thread.new { q.push JSON.parse(open("http://#{server}/overview.json").read) }
+              Thread.new { q.push JSON.parse(open("http://#{server}/overview.json").read) rescue nil }
             end.each(&:join)
             data["clusters"] += q.pop["clusters"] while not q.empty?
           end # queue
