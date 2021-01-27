@@ -25,15 +25,21 @@ module Nutcracker
       end
 
       get '/status' do
-        @nutcracker.
+        # return array of maps each map is {instance_ip => [unresposive_node_ports],instance_ip => [unresposive_node_ports]}
+        # exaple: [{"127.0.0.1"=>["6370", "6371", "6372", "6373"]}, {"192.168.1.114"=>["6370"]}]
+        unresponsive_ndoes = @nutcracker.
           config.
           values.
           map {|x| x["servers"] + [x["listen"]]}.
           flatten.
           map {|x| x.split(":")}.
-          map {|host, port| Thread.new {TCPSocket.new(host,port).close.nil? rescue false}}.map(&:value).
-          all?.
-          tap {|x| status(x ? 200 : 401)}
+          map {|host, port| Thread.new {TCPSocket.new(host,port).close.nil? rescue {:host=>host,:port=>port} } }.
+          map(&:value).
+          group_by{|k| k[:host]}.
+          map {|k,v| [k=>v.map { |v| v[:port] }] }.
+          flatten
+        #if there are unresposive_node in the list return status 401, if empty return 200
+        status = unresponsive_ndoes.empty?.tap {|x| status(x ? 200 : 401)}
       end
 
       get '/overview.json' do
