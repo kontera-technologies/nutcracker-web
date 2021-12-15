@@ -24,10 +24,11 @@ module Nutcracker
         haml :index
       end
 
-      get '/status' do
+      get '/status.json' do
+        content_type :json
         # return array of maps each map is {instance_ip => [unresposive_node_ports],instance_ip => [unresposive_node_ports]}
         # exaple: [{"127.0.0.1"=>["6370", "6371", "6372", "6373"]}, {"192.168.1.114"=>["6370"]}]
-        unresponsive_ndoes = @nutcracker.
+        nodes_check = @nutcracker.
           config.
           values.
           map {|x| x["servers"] + [x["listen"]]}.
@@ -35,11 +36,20 @@ module Nutcracker
           map {|x| x.split(":")}.
           map {|host, port| Thread.new {TCPSocket.new(host,port).close.nil? rescue {:host=>host,:port=>port} } }.
           map(&:value).
+          flatten
+
+
+        #return status 401 if there are unresposive_node in the list, if empty return 200
+        status = nodes_check.all?(true).tap {|x| status(x ? 200 : 401)}
+
+        next if status.eql? true
+
+        nodes_check.
+          reject { |status| status.eql? true}.
           group_by{|k| k[:host]}.
           map {|k,v| [k=>v.map { |v| v[:port] }] }.
-          flatten
-        #if there are unresposive_node in the list return status 401, if empty return 200
-        status = unresponsive_ndoes.empty?.tap {|x| status(x ? 200 : 401)}
+          flatten.
+          to_json
       end
 
       get '/overview.json' do
