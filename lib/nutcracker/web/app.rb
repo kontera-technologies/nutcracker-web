@@ -28,7 +28,7 @@ module Nutcracker
         content_type :json
         # return array of maps each map is {instance_ip => [unresposive_node_ports],instance_ip => [unresposive_node_ports]}
         # exaple: [{"127.0.0.1"=>["6370", "6371", "6372", "6373"]}, {"192.168.1.114"=>["6370"]}]
-        #return status 401 if there are unresposive_node in the list, if empty return 200
+        # return status 500 if there are unresposive_node in the list, if empty return 200
 
         @nutcracker.
           config.
