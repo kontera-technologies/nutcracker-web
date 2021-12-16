@@ -24,22 +24,27 @@ module Nutcracker
         haml :index
       end
 
-      get '/status' do
+      get '/status.json' do
+        content_type :json
         # return array of maps each map is {instance_ip => [unresposive_node_ports],instance_ip => [unresposive_node_ports]}
         # exaple: [{"127.0.0.1"=>["6370", "6371", "6372", "6373"]}, {"192.168.1.114"=>["6370"]}]
-        unresponsive_ndoes = @nutcracker.
+        # return status 500 if there are unresposive_node in the list, if empty return 200
+
+        @nutcracker.
           config.
           values.
-          map {|x| x["servers"] + [x["listen"]]}.
+          map { |x| x["servers"] + [x["listen"]] }.
           flatten.
-          map {|x| x.split(":")}.
-          map {|host, port| Thread.new {TCPSocket.new(host,port).close.nil? rescue {:host=>host,:port=>port} } }.
+          map { |x| x.split(":") }.
+          map { |host, port| Thread.new { { host: host, port: port, ok: (TCPSocket.new(host,port).close rescue false) } } }.
           map(&:value).
+          flatten.
+          reject { |node_health| node_health[:ok]}. #cleare all healthy nodes from the nodes array
+          tap { |unhealthy_nodes| status(500) unless unhealthy_nodes.empty? }.
           group_by{|k| k[:host]}.
           map {|k,v| [k=>v.map { |v| v[:port] }] }.
-          flatten
-        #if there are unresposive_node in the list return status 401, if empty return 200
-        status = unresponsive_ndoes.empty?.tap {|x| status(x ? 200 : 401)}
+          flatten.
+          to_json
       end
 
       get '/overview.json' do
