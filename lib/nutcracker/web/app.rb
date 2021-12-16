@@ -36,7 +36,7 @@ module Nutcracker
           map { |x| x["servers"] + [x["listen"]] }.
           flatten.
           map { |x| x.split(":") }.
-          map { |host, port| Thread.new { { host: host, port: port, ok: (TCPSocket.new(host,port).close rescue false) } } }.
+          map { |host, port| Thread.new { { host: host, port: port, ok: (TCPSocket.new(host,port).close.nil? rescue false) } } }.
           map(&:value).
           flatten.
           reject { |node_health| node_health[:ok]}. #cleare all healthy nodes from the nodes array
