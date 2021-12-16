@@ -28,24 +28,25 @@ module Nutcracker
         content_type :json
         # return array of maps each map is {instance_ip => [unresposive_node_ports],instance_ip => [unresposive_node_ports]}
         # exaple: [{"127.0.0.1"=>["6370", "6371", "6372", "6373"]}, {"192.168.1.114"=>["6370"]}]
-        nodes_check = @nutcracker.
+        #return status 401 if there are unresposive_node in the list, if empty return 200
+
+        @nutcracker.
           config.
           values.
           map {|x| x["servers"] + [x["listen"]]}.
           flatten.
           map {|x| x.split(":")}.
-          map {|host, port| Thread.new {TCPSocket.new(host,port).close.nil? rescue {:host=>host,:port=>port} } }.
+          map {|host, port| Thread.new do
+            TCPSocket.new(host,port).close
+            {host: host, port: port, ok: true}
+          rescue
+            {host: host, port: port, ok: false}
+          end
+          }.
           map(&:value).
-          flatten
-
-
-        #return status 401 if there are unresposive_node in the list, if empty return 200
-        status = nodes_check.all?(true).tap {|x| status(x ? 200 : 401)}
-
-        next if status.eql? true
-
-        nodes_check.
-          reject { |status| status.eql? true}.
+          flatten.
+          reject { |node_health| node_health[:ok]}. #cleare all healthy nodes from the nodes array
+          tap { |unhealthy_nodes| status(500) unless unhealthy_nodes.empty? }.
           group_by{|k| k[:host]}.
           map {|k,v| [k=>v.map { |v| v[:port] }] }.
           flatten.
