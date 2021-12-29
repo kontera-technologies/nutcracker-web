@@ -30,7 +30,7 @@ set -e
 ################################################################################
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-if [[ "$BRANCH" = "master" ]]; then
+if ![[ "$BRANCH" = "master" ]]; then
   echo 'To release a new version, checkout the master branch.';
   exit 1;
 fi
