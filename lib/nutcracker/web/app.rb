@@ -24,7 +24,7 @@ module Nutcracker
         haml :index
       end
 
-      get '/status.json' do
+      get '/status' do
         content_type :json
         # return array of maps each map is {instance_ip => [unresposive_node_ports],instance_ip => [unresposive_node_ports]}
         # exaple: [{"127.0.0.1"=>["6370", "6371", "6372", "6373"]}, {"192.168.1.114"=>["6370"]}]
