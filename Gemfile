@@ -10,4 +10,3 @@ gem 'uglifier'
 gem 'nutcracker', ">=0.4.1.20"
 gem "rack", ">= 2.0.8"
 gem 'rake'
-gem 'gem-release'

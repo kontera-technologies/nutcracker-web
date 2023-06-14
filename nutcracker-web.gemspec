@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage              = 'http://www.kontera.com'
   s.required_ruby_version = '>= 1.9.1'
   s.rubyforge_project     = "ruby-nutcracker-web"
-  s.files                 = %w(README.md Rakefile Gemfile Gemfile.lock) + Dir.glob("{lib,bin}/**/*")
+  s.files                 = %w(README.md Rakefile Gemfile Gemfile.lock public) + Dir.glob("{lib,public,bin}/**/*")
   s.require_path          = "lib"
   s.bindir                = "bin"
   s.executables           = %w(nutcracker-web)
