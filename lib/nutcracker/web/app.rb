@@ -21,7 +21,7 @@ module Nutcracker
       end
 
       get '/' do
-        haml :index
+        haml :index, escape_html: false
       end
 
       get '/status' do
