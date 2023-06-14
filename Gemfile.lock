@@ -14,7 +14,6 @@ GEM
     eco-source (1.1.0.rc.1)
     eventmachine (1.2.7)
     execjs (2.7.0)
-    gem-release (2.2.2)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -51,7 +50,6 @@ PLATFORMS
 DEPENDENCIES
   coffee-script
   eco
-  gem-release
   haml
   nutcracker (>= 0.4.1.20)
   rack (>= 2.0.8)
